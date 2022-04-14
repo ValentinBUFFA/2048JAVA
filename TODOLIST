@@ -1,2 +1,5 @@
 Corriger la copie profonde de copy2Darray
 Coder la copie profonde de la hashmap
+Pas recreer les cases car:
+    -meme si addresses supprimées du tableau, elles sont gardés dans la copie
+    -la hashmap a besoin de garder les addresses initiales

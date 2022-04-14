@@ -15,11 +15,14 @@ public class Jeu extends Observable {
     private Case[][] tabCases;
     private static Random rnd = new Random(4);
     public HashMap<Case, Point> hm;
+    public boolean gameover;
 
     public Jeu(int size) {
         tabCases = new Case[size][size];
         hm = new HashMap<Case, Point>();
-        rnd();
+        gameover = false;
+        ajouterRnd();
+        ajouterRnd();
     }
 
     public void affichageDebug(){
@@ -111,15 +114,24 @@ public class Jeu extends Observable {
     public void action(Direction d){
         new Thread() { // permet de libérer le processus graphique ou de la console
             public void run() {
+                if (gameover){
+                    System.out.println("GAME OVER");
+                    return;
+                }
                 void_action(d);
-                ajouterRnd();
+                affichageDebug();
+                if(hm.size()<tabCases.length*tabCases.length){
+                    ajouterRnd();
+                }
                 setChanged();
                 notifyObservers();
-                //affichageDebug();
+                if(hm.size()==tabCases.length*tabCases.length && testFinPartie()==false){
+                    System.out.println("GAME OVER");
+                    gameover = true;
+                }
             }
 
         }.start();
-
     }
 
     public Case getVoisinAv(int i, int j, Direction d){
@@ -181,12 +193,39 @@ public class Jeu extends Observable {
         }
     }
 
-    //Renvoir true si la partie est finie, ie plus aucun mouvement n'est possible
+    //Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible
+    //On devrait rentrer dans cette fonction que si la hashmap est pleine(ie toutes les cellules sont occupées)
     public boolean testFinPartie(){
-        //on copie l'etat actuel de la grille de jeu et de la hashmap pour potentiellement le restaurer après
-        Case[][] tabCopy = tool.Tool.copy2Darray(tabCases);
         boolean hasChanged = false;
-        void_action(Direction.gauche);
-
+        //on copie l'etat actuel de la grille de jeu et de la hashmap pour potentiellement le restaurer après
+        Case[][] tab_copy = tool.Tool.copy2Darray(this.tabCases);
+        HashMap<Case, Point> hm_copy = tool.Tool.copyHashMap(this.hm);
+        //ensuite on teste successivement chaque deplacement, en reinitialisant le jeu à son etat initial entre chaque
+        //TODO faire du multithreading pour tester les 4 en //
+        for(int k = 0; k<4; k++){
+            switch (k) {
+                case 0:
+                    void_action(Direction.gauche);
+                    break;
+                case 1:
+                    void_action(Direction.droite);
+                    break;
+                case 2:
+                    void_action(Direction.haut);
+                    break;
+                case 3:
+                    void_action(Direction.bas);
+                    break;
+                default:
+                    break;
+            }
+            if (hm.size()<hm_copy.size()){//si il y a eu un mouvement effectif alors c'est forcement une fusion (car grille pleine)
+                hasChanged = true;
+            }
+            //Puis on remet l'etat initial avant le prochain test
+            this.tabCases = tool.Tool.copy2Darray(tab_copy);
+            this.hm = tool.Tool.copyHashMap(hm_copy);
+        }
+        return hasChanged;
     }
 }

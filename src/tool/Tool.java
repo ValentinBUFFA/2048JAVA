@@ -20,6 +20,8 @@ public class Tool {
 
     public static HashMap<Case, Point> copyHashMap(HashMap<Case, Point> hm){
         HashMap<Case, Point> hm_copy = new HashMap<Case, Point>();
+        hm_copy.putAll(hm);
+        return hm_copy;
         
     }
 }
