@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Random;
 
-import tool.Tool;
-
 import javax.swing.text.Position;
 @SuppressWarnings( "deprecation" )
 
@@ -168,7 +166,7 @@ public class Jeu extends Observable {
 
     //Ajoute 1 ou 2 cases de valeurs aléatoires (2 ou 4)
     //! attention si il ne reste pas beaucoup de place dans la grille
-    // =>deja géré par ajouterCase??
+    // =>deja géré dans action()
     //On compte le nombre de "cases" null et on garde leurs coordonnées en mémoire
     public void ajouterRnd(){
         int nbNulls = 0;
