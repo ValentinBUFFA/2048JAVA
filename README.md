@@ -19,3 +19,5 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Faire un historique des coups joués avec possibilité de revenir en arriere
 - Rendre possible de sauvegarder la partie avec le highscore (et le temps)
 - Rendre possible de charger une sauvegarde
+- Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
+- (Optimiser la verification de fin de partie en gardant en mémoire les etats de la grille)  
