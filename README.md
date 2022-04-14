@@ -2,8 +2,6 @@
 MODELE: case, direction, jeu
 VUE_CONTROLEUR: Console2048, Swing2048
 
-HELLO WORLD!
-
 ### TODOLIST:
 #### VUE:
 - Resize la taille de la police pour eviter l'overflow sur l'affichage graphique
