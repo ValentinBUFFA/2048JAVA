@@ -11,6 +11,8 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Bouton/keybind pour annuler un coup
 - Bouton/keybind pour sauvegarder la partie
 - Afficher le highscore, et le temps de la partie actuelle
+- Pour les boutons, utiliser menus de navigation?
+- Ajouter des animations au deplacement des cases (avec possiblité de les desactiver)
 
 #### MODELE:
 - Adapter la taille du jeu selon l'argument du constructeur Jeu(taille)
