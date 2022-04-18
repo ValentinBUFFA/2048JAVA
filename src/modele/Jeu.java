@@ -120,10 +120,11 @@ public class Jeu extends Observable {
                     return;
                 }
                 void_action(d);
-                //affichageDebug();
                 if(hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                 }
+                affichageDebug();
+                System.out.println();
                 setChanged();
                 notifyObservers();
                 historique.ajouterHist(hm);
@@ -237,6 +238,7 @@ public class Jeu extends Observable {
         if (new_hm != null){
             //reconstruire la grille grace a la nouvelle hm
             construireGrille(new_hm);
+            //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
             if (gameover){
                 gameover = false;
                 if(hm.size() == tabCases.length*tabCases.length && testFinPartie()==false){
@@ -248,10 +250,11 @@ public class Jeu extends Observable {
         }
         return false;
     }
+
     public void construireGrille(HashMap<Case, Point> new_hm){
-        this.hm = new_hm;
+        hm = tool.Tool.deepCopyHashMap(new_hm);
         clearGrid();
-        new_hm.forEach((c, pt)->{
+        hm.forEach((c, pt)->{
             tabCases[pt.x][pt.y] = c;
         });
     }
