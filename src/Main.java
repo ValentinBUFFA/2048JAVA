@@ -13,7 +13,7 @@ public class Main {
 
     }
 
-    public static void mainConsole() {
+    public static void mainConsole() throws IOException{
         Jeu jeu = new Jeu(4);
         Console2048 vue = new Console2048(jeu);
         jeu.addObserver(vue);
