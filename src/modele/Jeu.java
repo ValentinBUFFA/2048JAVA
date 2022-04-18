@@ -173,7 +173,7 @@ public class Jeu extends Observable {
     }
 
     //Ajoute 1 ou 2 cases de valeurs aléatoires (2 ou 4)
-    //! attention si il ne reste pas beaucoup de place dans la grille
+    //! attention s'il ne reste pas beaucoup de place dans la grille
     // =>deja géré dans action()
     //On compte le nombre de "cases" null et on garde leurs coordonnées en mémoire
     public void ajouterRnd(){
@@ -270,6 +270,8 @@ public class Jeu extends Observable {
                 gameover = false;
                 testFinPartie();
             }
+            setChanged();
+            notifyObservers();
             return true;
         }
         return false;
@@ -283,6 +285,8 @@ public class Jeu extends Observable {
             construireGrille(new_hm);
             //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
             testFinPartie();
+            setChanged();
+            notifyObservers();
             return true;
         }
         return false;

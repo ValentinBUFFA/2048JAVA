@@ -1,5 +1,7 @@
 package vue_controleur;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
 import modele.Case;
@@ -17,6 +19,14 @@ public class SwingMenu extends JMenuBar {
             public void actionPerformed(ActionEvent event) {
                 System.out.println(event.getActionCommand());
                 switch (event.getActionCommand()) {
+                    case "Sauver": try {
+                            jeu.saveToFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } break;
+                    case "Annuler": jeu.undoMove(); break;
+                    case "Refaire": jeu.redoMove(); break;
+
                     case "Haut": jeu.action(Direction.haut); break;
                     case "Bas": jeu.action(Direction.bas); break;
                     case "Gauche": jeu.action(Direction.gauche); break;
@@ -25,9 +35,23 @@ public class SwingMenu extends JMenuBar {
 
               }
         };
+        JMenu partieMenu = new JMenu("Partie");
+        JMenuItem item = new JMenuItem("Sauver", 'S');
+        item.addActionListener(afficherMenu);
+        partieMenu.add(item);
 
-        JMenu actionMenu = new JMenu("Action");
-        JMenuItem item = new JMenuItem("Haut", 'H');
+
+        JMenu actionMenu = new JMenu("Actions");
+        item = new JMenuItem("Annuler", 'A');
+        item.addActionListener(afficherMenu);
+        actionMenu.add(item);
+        item = new JMenuItem("Refaire", 'R');
+        item.addActionListener(afficherMenu);
+        actionMenu.add(item);
+
+        actionMenu.insertSeparator(2);
+
+        item = new JMenuItem("Haut", 'H');
         item.addActionListener(afficherMenu);
         actionMenu.add(item);
         item = new JMenuItem("Bas", 'B');
@@ -40,6 +64,7 @@ public class SwingMenu extends JMenuBar {
         item.addActionListener(afficherMenu);
         actionMenu.add(item);
 
+        add(partieMenu);
         add(actionMenu);
     }
 }
