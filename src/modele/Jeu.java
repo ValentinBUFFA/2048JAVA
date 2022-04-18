@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.text.Position;
 @SuppressWarnings( "deprecation" )
@@ -15,6 +18,7 @@ public class Jeu extends Observable {
     public HashMap<Case, Point> hm;
     public boolean gameover;
     private Historique historique;
+    private int score, highscore;
 
     public Jeu(int size) {
         tabCases = new Case[size][size];
@@ -24,6 +28,8 @@ public class Jeu extends Observable {
         ajouterRnd();
         historique = new Historique(10); // On garde les 10 coups précédents en mémoire
         historique.ajouterHist(hm);
+        score = 0;
+        highscore = 0;
     }
 
     public void affichageDebug(){
@@ -280,5 +286,43 @@ public class Jeu extends Observable {
             return true;
         }
         return false;
+    }
+
+    //0 si la case est null
+    public int getValeur(int i, int j){
+        if (tabCases[i][j] == null){
+            return 0;
+        }
+        return tabCases[i][j].getValeur();
+    }
+
+    //Sauvegarde dans un fichier externe (syntaxe csv)
+    public void saveToFile() throws IOException{
+        PrintWriter printWriter = new PrintWriter(new FileWriter("save.csv"));
+
+        //grid to csv
+        //score, taille_grille
+        printWriter.printf("%d,%d",1000,tabCases.length);
+        printWriter.println();
+        for(int i = 0; i<tabCases.length; i++){
+            for(int j = 0; j<tabCases.length-1; j++){
+                printWriter.printf("%d,",getValeur(i,j));
+            }
+            printWriter.print(getValeur(i,tabCases.length-1));
+            printWriter.println();
+        }
+
+        printWriter.close();
+    }
+
+    //TODO charger depuis sauvegarde
+    public void loadFromFile(){}
+
+
+    public int getScore(){
+        return score;
+    }
+    public int getHighScore(){
+        return highscore;
     }
 }

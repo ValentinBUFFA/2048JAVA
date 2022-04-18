@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import modele.Jeu;
 import vue_controleur.Console2048;
 import vue_controleur.Swing2048;
@@ -5,7 +7,7 @@ import vue_controleur.Swing2048;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         //mainConsole();
         mainSwing();
 
@@ -19,13 +21,14 @@ public class Main {
 
     }
 
-    public static void mainSwing() {
+    public static void mainSwing() throws IOException{
 
         Jeu jeu = new Jeu(4);
         Swing2048 vue = new Swing2048(jeu);
         jeu.addObserver(vue);
 
         vue.setVisible(true);
+        jeu.saveToFile();
 
     }
 
