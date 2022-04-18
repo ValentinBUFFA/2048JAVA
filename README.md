@@ -19,8 +19,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Paramètres?
 
 #### MODELE:
-- Adapter la taille du jeu selon l'argument du constructeur Jeu(taille)
-- Faire un historique des coups joués avec possibilité de revenir en arriere
+- Faire un historique des coups joués avec possibilité de revenir en arriere : val
 - Rendre possible de sauvegarder la partie avec le highscore (et le temps)
 - Rendre possible de charger une sauvegarde
 - Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
