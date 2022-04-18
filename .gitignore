@@ -1,4 +1,4 @@
 /bin
 /.vscode
 /lib
-save.csv
+*.csv
