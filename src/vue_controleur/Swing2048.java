@@ -122,6 +122,10 @@ public class Swing2048 extends JFrame implements Observer {
                         jeu.undoMove();
                         rafraichir();
                         break;
+                    case KeyEvent.VK_ENTER:
+                        jeu.redoMove();
+                        rafraichir();
+                        break;
                 }
             }
         });
