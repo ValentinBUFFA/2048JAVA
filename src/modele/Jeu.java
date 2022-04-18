@@ -129,7 +129,7 @@ public class Jeu extends Observable {
                 if(hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                 }
-                affichageDebug();
+                //affichageDebug();
                 System.out.println();
                 setChanged();
                 notifyObservers();
@@ -302,7 +302,7 @@ public class Jeu extends Observable {
 
         //grid to csv
         //score, taille_grille
-        printWriter.printf("%d,%d",1000,tabCases.length);
+        printWriter.printf("%d,%d",score,tabCases.length);
         printWriter.println();
         for(int i = 0; i<tabCases.length; i++){
             for(int j = 0; j<tabCases.length-1; j++){
@@ -321,6 +321,13 @@ public class Jeu extends Observable {
 
     public int getScore(){
         return score;
+    }
+    public void ajouterScore(int n){
+        score+=n;
+        System.out.println(score);
+        if (score>highscore){
+            highscore = score;
+        }
     }
     public int getHighScore(){
         return highscore;

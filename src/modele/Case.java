@@ -81,6 +81,7 @@ public class Case {
     public void doubler(){
         this.valeur*=2;
         this.state = false;//Empeche de fusionner 2 fois dans le meme deplacement
+        jeu.ajouterScore(this.valeur);
     }
     public void resetState(){
         this.state = true;
