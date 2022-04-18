@@ -342,7 +342,11 @@ public class Jeu extends Observable {
     }
 
     public int loadHighScore() throws IOException{
+        
         Scanner sc = new Scanner(new File("highscore.csv"));
+        if(!sc.hasNextInt()) {
+            return 0;
+        }
         return sc.nextInt();
     }
 }
