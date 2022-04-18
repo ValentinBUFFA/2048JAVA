@@ -43,6 +43,7 @@ public class Swing2048 extends JFrame implements Observer {
         jeu = _jeu;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
+        setJMenuBar(new SwingMenu(jeu));
         tabC = new JLabel[jeu.getSize()][jeu.getSize()];
 
 
