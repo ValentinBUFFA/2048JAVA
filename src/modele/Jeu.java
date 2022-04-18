@@ -7,6 +7,8 @@ import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
+import java.io.File;
 
 import javax.swing.text.Position;
 @SuppressWarnings( "deprecation" )
@@ -19,8 +21,9 @@ public class Jeu extends Observable {
     public boolean gameover;
     private Historique historique;
     private int score, highscore;
+    PrintWriter hswriter;
 
-    public Jeu(int size) {
+    public Jeu(int size) throws IOException{
         tabCases = new Case[size][size];
         hm = new HashMap<Case, Point>();
         gameover = false;
@@ -29,7 +32,8 @@ public class Jeu extends Observable {
         historique = new Historique(10); // On garde les 10 coups précédents en mémoire
         historique.ajouterHist(hm);
         score = 0;
-        highscore = 0;
+        hswriter = new PrintWriter(new FileWriter("highscore.csv"));
+        highscore = loadHighScore();
     }
 
     public void affichageDebug(){
@@ -129,7 +133,7 @@ public class Jeu extends Observable {
                 if(hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                 }
-                affichageDebug();
+                //affichageDebug();
                 System.out.println();
                 setChanged();
                 notifyObservers();
@@ -306,7 +310,7 @@ public class Jeu extends Observable {
 
         //grid to csv
         //score, taille_grille
-        printWriter.printf("%d,%d",1000,tabCases.length);
+        printWriter.printf("%d,%d",score,tabCases.length);
         printWriter.println();
         for(int i = 0; i<tabCases.length; i++){
             for(int j = 0; j<tabCases.length-1; j++){
@@ -326,7 +330,19 @@ public class Jeu extends Observable {
     public int getScore(){
         return score;
     }
+    public void ajouterScore(int n){
+        score+=n;
+        System.out.println(score);
+        if (score>highscore){
+            highscore = score;
+        }
+    }
     public int getHighScore(){
         return highscore;
+    }
+
+    public int loadHighScore() throws IOException{
+        Scanner sc = new Scanner(new File("highscore.csv"));
+        return sc.nextInt();
     }
 }
