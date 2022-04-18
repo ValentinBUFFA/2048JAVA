@@ -19,6 +19,9 @@ public class Case {
     public int getValeur() {
         return valeur;
     }
+    public Jeu getJeu(){
+        return jeu;
+    }
     
     public void deplacer(Direction d){
         Point pt = this.jeu.hm.get(this); 

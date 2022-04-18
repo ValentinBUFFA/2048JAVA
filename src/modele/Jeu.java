@@ -14,6 +14,7 @@ public class Jeu extends Observable {
     private static Random rnd = new Random(4);
     public HashMap<Case, Point> hm;
     public boolean gameover;
+    private Historique historique;
 
     public Jeu(int size) {
         tabCases = new Case[size][size];
@@ -21,6 +22,8 @@ public class Jeu extends Observable {
         gameover = false;
         ajouterRnd();
         ajouterRnd();
+        historique = new Historique(10); // On garde les 10 coups précédents en mémoire
+        historique.ajouterHist(hm);
     }
 
     public void affichageDebug(){
@@ -117,13 +120,14 @@ public class Jeu extends Observable {
                     return;
                 }
                 void_action(d);
-                affichageDebug();
+                //affichageDebug();
                 if(hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                 }
                 setChanged();
                 notifyObservers();
-                if(hm.size()==tabCases.length*tabCases.length && testFinPartie()==false){
+                historique.ajouterHist(hm);
+                if(hm.size() == tabCases.length*tabCases.length && testFinPartie()==false){
                     System.out.println("GAME OVER");
                     gameover = true;
                 }
@@ -226,4 +230,37 @@ public class Jeu extends Observable {
         }
         return hasChanged;
     }
+
+    //Renvoie true si aucun soucis
+    public boolean undoMove(){
+        HashMap<Case, Point> new_hm = historique.getLastHM();
+        if (new_hm != null){
+            //reconstruire la grille grace a la nouvelle hm
+            construireGrille(new_hm);
+            if (gameover){
+                gameover = false;
+                if(hm.size() == tabCases.length*tabCases.length && testFinPartie()==false){
+                    System.out.println("GAME OVER");
+                    gameover = true;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    public void construireGrille(HashMap<Case, Point> new_hm){
+        this.hm = new_hm;
+        clearGrid();
+        new_hm.forEach((c, pt)->{
+            tabCases[pt.x][pt.y] = c;
+        });
+    }
+    
+    private void clearGrid(){
+        for (int i = 0; i < tabCases.length; i++) {
+            for (int j = 0; j < tabCases.length; j++) {
+                tabCases[i][j] = null;
+            }
+        }
+    } 
 }
