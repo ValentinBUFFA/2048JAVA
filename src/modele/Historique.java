@@ -23,7 +23,9 @@ public class Historique {
             first_index++;
             System.out.println("fi");
         }
+
         System.out.println("+:"+first_index+" "+index+" "+" "+last_index);
+
         hm_hist[index%hm_hist.length] = tool.Tool.deepCopyHashMap(hm);
         return index;
     }
@@ -34,7 +36,9 @@ public class Historique {
             return null;
         }
         index--;
+
         System.out.println("get_last:"+first_index+" "+index+" "+" "+last_index);
+
         return hm_hist[index%hm_hist.length];
     }
 
@@ -44,6 +48,9 @@ public class Historique {
             return null;
         }
         index++;
+        
+        System.out.println("get_next:"+first_index+" "+index+" "+" "+last_index);
+
         return hm_hist[index%hm_hist.length];
     }
     

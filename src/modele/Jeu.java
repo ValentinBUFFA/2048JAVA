@@ -128,10 +128,7 @@ public class Jeu extends Observable {
                 setChanged();
                 notifyObservers();
                 historique.ajouterHist(hm);
-                if(hm.size() == tabCases.length*tabCases.length && testFinPartie()==false){
-                    System.out.println("GAME OVER");
-                    gameover = true;
-                }
+                testFinPartie();
             }
 
         }.start();
@@ -199,6 +196,10 @@ public class Jeu extends Observable {
     //Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible
     //On devrait rentrer dans cette fonction que si la hashmap est pleine(ie toutes les cellules sont occupées)
     public boolean testFinPartie(){
+        if(hm.size() < tabCases.length*tabCases.length){
+            return false;
+        }
+
         boolean hasChanged = false;
         //on copie l'etat actuel de la grille de jeu et de la hashmap pour potentiellement le restaurer après
         Case[][] tab_copy = tool.Tool.copy2Darray(this.tabCases);
@@ -229,26 +230,11 @@ public class Jeu extends Observable {
             this.tabCases = tool.Tool.copy2Darray(tab_copy);
             this.hm = tool.Tool.copyHashMap(hm_copy);
         }
-        return hasChanged;
-    }
-
-    //Renvoie true si aucun soucis
-    public boolean undoMove(){
-        HashMap<Case, Point> new_hm = historique.getLastHM();
-        if (new_hm != null){
-            //reconstruire la grille grace a la nouvelle hm
-            construireGrille(new_hm);
-            //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
-            if (gameover){
-                gameover = false;
-                if(hm.size() == tabCases.length*tabCases.length && testFinPartie()==false){
-                    System.out.println("GAME OVER");
-                    gameover = true;
-                }
-            }
-            return true;
+        if (hasChanged){
+            System.out.println("GAME OVER");
+            gameover = true;
         }
-        return false;
+        return hasChanged;
     }
 
     public void construireGrille(HashMap<Case, Point> new_hm){
@@ -265,5 +251,34 @@ public class Jeu extends Observable {
                 tabCases[i][j] = null;
             }
         }
-    } 
+    }
+
+    //Renvoie true si aucun soucis
+    public boolean undoMove(){
+        HashMap<Case, Point> new_hm = historique.getLastHM();
+        if (new_hm != null){
+            //reconstruire la grille grace a la nouvelle hm
+            construireGrille(new_hm);
+            //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
+            if (gameover){
+                gameover = false;
+                testFinPartie();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    //Renvoie true si aucun soucis
+    public boolean redoMove(){
+        HashMap<Case, Point> new_hm = historique.getNextHM();
+        if (new_hm != null){
+            //reconstruire la grille grace a la nouvelle hm
+            construireGrille(new_hm);
+            //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
+            testFinPartie();
+            return true;
+        }
+        return false;
+    }
 }
