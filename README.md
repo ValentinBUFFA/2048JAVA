@@ -32,4 +32,4 @@ VUE_CONTROLEUR: Console2048, Swing2048
 
 ### KNOWN BUGS
 - !testFinPartie not working properly->FIX 
-- gestion du score dans l'historique
+- [V] gestion du score dans l'historique

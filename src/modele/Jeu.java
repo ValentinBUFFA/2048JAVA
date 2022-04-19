@@ -29,7 +29,7 @@ public class Jeu extends Observable {
         ajouterRnd();
         ajouterRnd();
         historique = new Historique(10); // On garde les 10 coups précédents en mémoire
-        historique.ajouterHist(hm);
+        historique.ajouterHist(hm, score);
         score = 0;
         highscore = loadHighScore();
         System.out.println(highscore);
@@ -133,10 +133,9 @@ public class Jeu extends Observable {
                     ajouterRnd();
                 }
                 //affichageDebug();
-                System.out.println();
                 setChanged();
                 notifyObservers();
-                historique.ajouterHist(hm);
+                historique.ajouterHist(hm, score);
                 testFinPartie();
             }
 
@@ -268,6 +267,7 @@ public class Jeu extends Observable {
         if (new_hm != null){
             //reconstruire la grille grace a la nouvelle hm
             construireGrille(new_hm);
+            score = historique.getCurrentScore();
             //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
             if (gameover){
                 gameover = false;
@@ -286,6 +286,7 @@ public class Jeu extends Observable {
         if (new_hm != null){
             //reconstruire la grille grace a la nouvelle hm
             construireGrille(new_hm);
+            score = historique.getCurrentScore();
             //gerer le cas où la partie est perdu et le joueur veut revenir en arriere
             testFinPartie();
             setChanged();
@@ -332,7 +333,7 @@ public class Jeu extends Observable {
 
     public void ajouterScore(int n){
         score+=n;
-        System.out.println(score);
+        System.out.println("+++:"+score);
         if (score>highscore){
             highscore = score;
             updateHighScore();
@@ -359,7 +360,6 @@ public class Jeu extends Observable {
         PrintWriter hswriter;
         try {
             hswriter = new PrintWriter(new FileWriter("highscore.csv"));
-            System.out.println("PRINTED KIDDO");
             hswriter.print(highscore);
             hswriter.close();
         } catch (IOException e) {
