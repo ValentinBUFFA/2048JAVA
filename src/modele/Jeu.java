@@ -143,11 +143,7 @@ public class Jeu extends Observable {
                     return;
                 }
 
-<<<<<<< HEAD
-                if(void_action(d) > 0 && hm.size()<tabCases.length*tabCases.length){
-=======
                 if(void_action(d) > 0 /*&& hm.size()<tabCases.length*tabCases.length*/){
->>>>>>> cc1d412e8cf0ea5cc6ad7cab97a7d731cd28b928
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
                     affichageDebug();
