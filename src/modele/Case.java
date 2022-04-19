@@ -23,9 +23,9 @@ public class Case {
         return jeu;
     }
     
-    public boolean deplacer(Direction d){ // Retourne true s'il y a eu changement, false sinon.
+    public int deplacer(Direction d){ // Retourne true s'il y a eu changement, false sinon.
         Point pt = this.jeu.hm.get(this); 
-        boolean hasChanged = true;
+        int hasChanged = 0;
         int i = pt.x;// les coordonnées du point sont inversées
         int j = pt.y;// pour correspondre au point de vue "matrice"
         Case voisin;
@@ -56,28 +56,29 @@ public class Case {
         //Si fusion possible: on fusionne
         if (voisin.getValeur() == this.getValeur() && voisin.state){
             voisin.doubler();
+            hasChanged++;
             jeu.supprimerCase(this, i, j);
             //System.out.println("d"+i+" "+j);
         }else{//sinon, on relocalise la case à l'endroit adapté 
             
             switch (d) {
                 case gauche:
-                    hasChanged = jeu.mouvementCase(this, i, j-k);
+                    hasChanged += jeu.mouvementCase(this, i, j-k);
                     jeu.supprimerCase(this, i, j);
                     jeu.ajouterCase(this, i, j-k);
                     break;
                 case droite:
-                    hasChanged = jeu.mouvementCase(this, i, j+k);
+                    hasChanged += jeu.mouvementCase(this, i, j+k);
                     jeu.supprimerCase(this, i, j);  
                     jeu.ajouterCase(this, i, j+k);
                     break;
                 case bas:
-                    hasChanged = jeu.mouvementCase(this, i+k, j);
+                    hasChanged += jeu.mouvementCase(this, i+k, j);
                     jeu.supprimerCase(this, i, j);
                     jeu.ajouterCase(this, i+k, j);
                     break;
                 case haut:
-                    hasChanged = jeu.mouvementCase(this, i-k, j);
+                    hasChanged += jeu.mouvementCase(this, i-k, j);
                     jeu.supprimerCase(this, i, j);
                     jeu.ajouterCase(this, i-k, j);
                     break;
