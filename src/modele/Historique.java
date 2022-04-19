@@ -16,7 +16,6 @@ public class Historique {
         first_index = 0;//premier indice plein
         last_index = -1; // last written index
         index = -1; // indice dans le tableau de la hashmap actuelle
-        //! RAJOUTER UN INDICE POUR LE DEBUT, CAR QUAND ON REJOUE CA "RESET" LE COMPTEUR DE DEBUT
     }
 
     public int ajouterHist(HashMap<Case, Point> hm, int score){
@@ -34,7 +33,7 @@ public class Historique {
         return index;
     }
 
-    public HashMap<Case, Point> getLastHM(){
+    public HashMap<Case, Point> moveBackwardHM(){
         if (index < 1 || index == first_index){
             System.out.println("pas possible de revenir en arriere");
             return null;
@@ -46,7 +45,7 @@ public class Historique {
         return hm_hist[index%hm_hist.length];
     }
 
-    public HashMap<Case, Point> getNextHM(){
+    public HashMap<Case, Point> moveForwardHM(){
         if (index == last_index){
             System.out.println("pas possible d'avancer davantage");
             return null;
@@ -57,6 +56,11 @@ public class Historique {
 
         return hm_hist[index%hm_hist.length];
     }
+
+    public HashMap<Case, Point> getCurrentHM() {
+        return hm_hist[index%hm_hist.length];
+    }
+
     
     public int getCurrentScore(){
         //System.out.println("ca bouge:"+score_hist[index%hm_hist.length]);

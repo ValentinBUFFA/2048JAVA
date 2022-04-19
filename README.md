@@ -26,7 +26,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Faire un fichier séparé, systematiquement lu à la creation d'un jeu pour stocker le highscore
 - [V] Enregistrer le score
 - Enregistrer le score dans l'historique
-- Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
+- [V] Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
 - (Optimiser la verification de fin de partie en gardant en mémoire les etats de la grille)  
 
 

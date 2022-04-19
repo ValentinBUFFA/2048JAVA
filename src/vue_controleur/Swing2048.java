@@ -46,7 +46,7 @@ public class Swing2048 extends JFrame implements Observer {
         setJMenuBar(new SwingMenu(jeu));
         tabC = new JLabel[jeu.getSize()][jeu.getSize()];
 
-        JPanel headerPane
+        //JPanel headerPane
 
         JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
 
@@ -71,6 +71,12 @@ public class Swing2048 extends JFrame implements Observer {
         ajouterEcouteurClavier();
         rafraichir();
 
+    }
+
+    private void blinkFrame() throws InterruptedException {
+        setBackground(Color.green);
+        wait(100);
+        
     }
 
 
@@ -105,6 +111,40 @@ public class Swing2048 extends JFrame implements Observer {
         });
 
 
+    }
+
+    private void rafraichir(boolean action_effectuée) {
+        if(action_effectuée) {
+            rafraichir();
+        } else {
+            SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
+                @Override
+                public void run() {
+                    try {
+                        blinkFrame();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // for (int i = 0; i < jeu.getSize(); i++) {
+                    //     for (int j = 0; j < jeu.getSize(); j++) {
+                    //         Case c = jeu.getCase(i, j);
+    
+                    //         if (c == null) {
+    
+                    //             tabC[i][j].setText("");
+                    //             tabC[i][j].setBackground(bg_colors[0]);
+    
+                    //         } else {
+                    //             tabC[i][j].setText(c.getValeur() + "");
+                    //             tabC[i][j].setBackground(bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
+                    //         }
+    
+    
+                    //     }
+                    // }
+                }
+            });
+        }
     }
 
     /**
