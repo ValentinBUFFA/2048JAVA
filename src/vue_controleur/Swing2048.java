@@ -8,6 +8,9 @@ import tool.Tool;//Pour log2
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import javafx.scene.paint.Color;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 @SuppressWarnings( "deprecation" )
 
 public class Swing2048 extends JFrame implements Observer {
@@ -23,19 +27,19 @@ public class Swing2048 extends JFrame implements Observer {
     // tableau de cases : i, j -> case graphique
     private JLabel[][] tabC;
     private Jeu jeu;
-    private Color[] bg_colors = new Color[]{
-        new Color(77,63,40),//null
-        new Color(57,42,26),//2
-        new Color(71,55,23),//4
-        new Color(127,65,12),//8
-        new Color(142,54,9),//16
-        new Color(144,34,8),//32
-        new Color(166,37,8),//64
-        new Color(97,77,12),//128
-        new Color(105,83,12),//256
-        new Color(237,200,80),//512
-        new Color(237,197,63),//1024
-        new Color(237,194,46),//2048
+    private java.awt.Color[] bg_colors = new java.awt.Color[]{
+        new java.awt.Color(77,63,40),//null
+        new java.awt.Color(57,42,26),//2
+        new java.awt.Color(71,55,23),//4
+        new java.awt.Color(127,65,12),//8
+        new java.awt.Color(142,54,9),//16
+        new java.awt.Color(144,34,8),//32
+        new java.awt.Color(166,37,8),//64
+        new java.awt.Color(97,77,12),//128
+        new java.awt.Color(105,83,12),//256
+        new java.awt.Color(237,200,80),//512
+        new java.awt.Color(237,197,63),//1024
+        new java.awt.Color(237,194,46),//2048
     };
     private SwingMenu menuBar;
 
@@ -55,11 +59,11 @@ public class Swing2048 extends JFrame implements Observer {
 
         for (int i = 0; i < jeu.getSize(); i++) {
             for (int j = 0; j < jeu.getSize(); j++) {
-                Border border = BorderFactory.createLineBorder(new Color(87,74,62), 5);
+                Border border = BorderFactory.createLineBorder(new java.awt.Color(87,74,62), 5);
                 tabC[i][j] = new JLabel();
                 tabC[i][j].setFont(font);
                 tabC[i][j].setBorder(border);
-                tabC[i][j].setForeground(Color.white);
+                tabC[i][j].setForeground(java.awt.Color.white);
                 tabC[i][j].setOpaque(true);
 
                 tabC[i][j].setHorizontalAlignment(SwingConstants.CENTER);
@@ -73,15 +77,6 @@ public class Swing2048 extends JFrame implements Observer {
         rafraichir();
 
     }
-
-    private void blinkFrame() throws InterruptedException {
-        setBackground(Color.green);
-        wait(100);
-        
-    }
-
-
-
 
     /**
      * Correspond à la fonctionnalité de Vue : affiche les données du modèle
@@ -108,28 +103,13 @@ public class Swing2048 extends JFrame implements Observer {
 
                     }
                 }
+            
             }
         });
 
 
     }
 
-    private void rafraichir(boolean action_effectuée) {
-        if(action_effectuée) {
-            rafraichir();
-        } else {
-            SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
-                @Override
-                public void run() {
-                    try {
-                        blinkFrame();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
 
     /**
      * Correspond à la fonctionnalité de Contrôleur : écoute les évènements, et déclenche des traitements sur le modèle
@@ -155,6 +135,5 @@ public class Swing2048 extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         rafraichir();
         menuBar.update();
-
     }
 }

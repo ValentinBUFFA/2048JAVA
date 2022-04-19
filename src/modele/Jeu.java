@@ -22,6 +22,7 @@ public class Jeu extends Observable {
     private Historique historique;
     private int score, highscore;
 
+
     public Jeu(int size) throws IOException{
         tabCases = new Case[size][size];
         hm = new HashMap<Case, Point>();
@@ -32,6 +33,7 @@ public class Jeu extends Observable {
         historique.ajouterHist(hm, score);
         score = 0;
         highscore = loadHighScore();
+
     }
 
     public void affichageDebug(){
@@ -131,7 +133,7 @@ public class Jeu extends Observable {
                     return;
                 }
 
-                if(hm.size()<tabCases.length*tabCases.length && void_action(d) > 0){
+                if(void_action(d) > 0 && hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
                 } else {
@@ -417,3 +419,4 @@ public class Jeu extends Observable {
         }
     }
 }
+
