@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.text.Position;
 @SuppressWarnings( "deprecation" )
@@ -32,20 +33,21 @@ public class Jeu extends Observable {
         historique.ajouterHist(hm, score);
         score = 0;
         highscore = loadHighScore();
-        System.out.println(highscore);
     }
 
     public void affichageDebug(){
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
                 if (tabCases[i][j]==null){
-                    System.out.print('_');
+                    System.out.print("_ ");
                 }else{
-                    System.out.print(tabCases[i][j].getValeur());
+                    System.out.print(tabCases[i][j].getValeur()+" ");
                 }
             }
             System.out.println();
         }
+        System.out.println();
+
     }
 
     public int getSize() {
@@ -110,7 +112,6 @@ public class Jeu extends Observable {
                     tabCases[ii][jj].deplacer(d);
                 }
             }
-            //System.out.println();
         }
         for(int i = 0; i<tabCases.length; i++){
             for(int j = 0; j<tabCases.length; j++){
@@ -128,11 +129,12 @@ public class Jeu extends Observable {
                     System.out.println("GAME OVER");
                     return;
                 }
+                System.out.println("a");
                 void_action(d);
                 if(hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                 }
-                //affichageDebug();
+                affichageDebug();
                 setChanged();
                 notifyObservers();
                 historique.ajouterHist(hm, score);
@@ -175,8 +177,7 @@ public class Jeu extends Observable {
     }
 
     //Ajoute 1 ou 2 cases de valeurs aléatoires (2 ou 4)
-    //! attention s'il ne reste pas beaucoup de place dans la grille
-    // =>deja géré dans action()
+    // attention s'il ne reste pas beaucoup de place dans la grille => deja géré dans action()
     //On compte le nombre de "cases" null et on garde leurs coordonnées en mémoire
     public void ajouterRnd(){
         int nbNulls = 0;
@@ -238,7 +239,7 @@ public class Jeu extends Observable {
             this.tabCases = tool.Tool.copy2Darray(tab_copy);
             this.hm = tool.Tool.copyHashMap(hm_copy);
         }
-        if (hasChanged){
+        if (!hasChanged){
             System.out.println("GAME OVER");
             gameover = true;
         }
@@ -275,6 +276,7 @@ public class Jeu extends Observable {
             }
             setChanged();
             notifyObservers();
+            affichageDebug();
             return true;
         }
         return false;
@@ -324,7 +326,40 @@ public class Jeu extends Observable {
     }
 
     //TODO charger depuis sauvegarde
-    public void loadFromFile(){}
+    public boolean loadFromFile(){
+        try {
+            Scanner saveScanner = new Scanner(new File("save.csv"));
+            saveScanner.useDelimiter(",|\\n");
+
+            //On reinitialise le jeu avec les nouveaux attributs
+            score = saveScanner.nextInt();
+            int size = saveScanner.nextInt();
+            tabCases = new Case[size][size];
+            historique = new Historique(10);
+            hm = new HashMap<Case, Point>();
+
+            for(int i = 0; i<size; i++){
+                for(int j = 0; j<size; j++){
+                    int val = saveScanner.nextInt();
+                    if (val == 0){
+                        tabCases[i][j] = null;
+                    }else{
+                        tabCases[i][j] = new Case(val, this);
+                        hm.put(tabCases[i][j], new Point(i,j));
+                    }
+                }
+            }
+            saveScanner.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+        setChanged();
+        notifyObservers();
+        return true;
+    }
 
 
     public int getScore(){
@@ -333,7 +368,6 @@ public class Jeu extends Observable {
 
     public void ajouterScore(int n){
         score+=n;
-        System.out.println("+++:"+score);
         if (score>highscore){
             highscore = score;
             updateHighScore();
@@ -345,14 +379,13 @@ public class Jeu extends Observable {
     }
 
     public int loadHighScore() throws IOException{
-        
-        Scanner sc = new Scanner(new File("highscore.csv"));
-        sc.reset();
-        if(!sc.hasNextInt()) {
+        Scanner hScanner = new Scanner(new File("highscore.csv"));
+        hScanner.reset();
+        if(!hScanner.hasNextInt()) {
             return 0;
         }
-        int hs = sc.nextInt();
-        sc.close();
+        int hs = hScanner.nextInt();
+        hScanner.close();
         return hs;
     }
 

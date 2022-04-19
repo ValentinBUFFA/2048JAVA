@@ -27,7 +27,7 @@ public class Historique {
             //System.out.println("fi");
         }
 
-        //System.out.println("+:"+first_index+" "+index+" "+" "+last_index);
+        System.out.println("+:"+first_index+" "+index+" "+" "+last_index);
 
         hm_hist[index%hm_hist.length] = tool.Tool.deepCopyHashMap(hm);
         score_hist[index%hm_hist.length] = score;
@@ -53,13 +53,13 @@ public class Historique {
         }
         index++;
         
-        System.out.println("get_next:"+first_index+" "+index+" "+" "+last_index);
+        //System.out.println("get_next:"+first_index+" "+index+" "+" "+last_index);
 
         return hm_hist[index%hm_hist.length];
     }
     
     public int getCurrentScore(){
-        System.out.println("ca bouge:"+score_hist[index%hm_hist.length]);
+        //System.out.println("ca bouge:"+score_hist[index%hm_hist.length]);
 
         return score_hist[index%hm_hist.length];
     }
