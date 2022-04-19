@@ -59,19 +59,27 @@ public class Case {
             jeu.supprimerCase(this, i, j);
             //System.out.println("d"+i+" "+j);
         }else{//sinon, on relocalise la case à l'endroit adapté 
-            jeu.supprimerCase(this, i, j);
+            
             switch (d) {
                 case gauche:
-                    hasChanged = jeu.ajouterCase(this, i, j-k);
+                    hasChanged = jeu.mouvementCase(this, i, j-k);
+                    jeu.supprimerCase(this, i, j);
+                    jeu.ajouterCase(this, i, j-k);
                     break;
                 case droite:
-                    hasChanged = jeu.ajouterCase(this, i, j+k);
+                    hasChanged = jeu.mouvementCase(this, i, j+k);
+                    jeu.supprimerCase(this, i, j);  
+                    jeu.ajouterCase(this, i, j+k);
                     break;
                 case bas:
-                    hasChanged = jeu.ajouterCase(this, i+k, j);
+                    hasChanged = jeu.mouvementCase(this, i+k, j);
+                    jeu.supprimerCase(this, i, j);
+                    jeu.ajouterCase(this, i+k, j);
                     break;
                 case haut:
-                    hasChanged = jeu.ajouterCase(this, i-k, j);
+                    hasChanged = jeu.mouvementCase(this, i-k, j);
+                    jeu.supprimerCase(this, i, j);
+                    jeu.ajouterCase(this, i-k, j);
                     break;
                 default:
                     break;

@@ -134,7 +134,7 @@ public class Jeu extends Observable {
                 if(hm.size()<tabCases.length*tabCases.length && void_action(d)){
                     ajouterRnd();
                 } else {
-
+                    System.out.println("blink bitch");
                 }
                 System.out.println();
                 setChanged();
@@ -168,14 +168,19 @@ public class Jeu extends Observable {
     }
 
     //Renvoie false si la case ne change pas de place
-    public boolean ajouterCase(Case c, int i, int j){
-        if (tabCases[i][j]!=null && c == tabCases[i][j]){
-            return false;            
-        }
+    public void ajouterCase(Case c, int i, int j){
+
         tabCases[i][j] = c;
         hm.put(c, new Point(i,j));
         //System.out.println("a"+i+" "+j);
-        return true;
+    }
+
+    public boolean mouvementCase(Case c, int i, int j) {    // Retourne false si la case ne fera pas de mouvement
+        if(tabCases[i][j] == c) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //Ajoute 1 ou 2 cases de valeurs aléatoires (2 ou 4)
