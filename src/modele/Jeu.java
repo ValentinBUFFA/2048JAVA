@@ -34,13 +34,21 @@ public class Jeu extends Observable {
         highscore = loadHighScore();
     }
 
+    public Jeu(Jeu jeu){
+        tabCases = new Case[jeu.tabCases.length][jeu.tabCases.length];
+        hm = tool.Tool.deepCopyHashMap(jeu.hm, this);
+        construireGrille(hm);
+        score = jeu.score;
+        gameover = jeu.gameover;
+    }
+
     public void affichageDebug(){
         for (int i = 0; i < tabCases.length; i++) {
             for (int j = 0; j < tabCases.length; j++) {
                 if (tabCases[i][j]==null){
-                    System.out.print("_ ");
+                    System.out.print("_  ");
                 }else{
-                    System.out.print(tabCases[i][j].getValeur()+" ");
+                    System.out.print(tabCases[i][j].getValeur()+"  ");
                 }
             }
             System.out.println();
@@ -127,19 +135,25 @@ public class Jeu extends Observable {
         new Thread() { // permet de libérer le processus graphique ou de la console
             public void run() {
                 if (gameover){
-                    System.out.println("GAME OVER");
+                    System.out.println("Game OVER");
+                    affichageDebug();
+
                     return;
                 }
 
-                if(hm.size()<tabCases.length*tabCases.length && void_action(d) > 0){
+                if(void_action(d) > 0 /*&& hm.size()<tabCases.length*tabCases.length*/){
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
+                    affichageDebug();
                 } else {
+                    
                     System.out.println("blink bitch");
+                    affichageDebug();
                 }
                 System.out.println();
                 setChanged();
                 notifyObservers();
+                System.out.println("a");
                 testFinPartie();
             }
 
@@ -209,9 +223,7 @@ public class Jeu extends Observable {
         }
     }
 
-    //Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible
-    //On devrait rentrer dans cette fonction que si la hashmap est pleine(ie toutes les cellules sont occupées)
-    public boolean testFinPartie(){
+    /*public boolean testFinPartie1(){
         if(hm.size() < tabCases.length*tabCases.length){
             return false;
         }
@@ -245,6 +257,44 @@ public class Jeu extends Observable {
             //Puis on remet l'etat initial avant le prochain test
             this.tabCases = tool.Tool.copy2Darray(tab_copy);
             this.hm = tool.Tool.copyHashMap(hm_copy);
+        }
+        if (!hasChanged){
+            System.out.println("GAME OVER");
+            gameover = true;
+        }
+        return hasChanged;
+    }*/
+
+    //Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible
+    public boolean testFinPartie(){
+        if(hm.size() < tabCases.length*tabCases.length){
+            return false;
+        }
+
+        Jeu temp_jeu;
+        boolean hasChanged = false;
+        for(int k = 0; k<4; k++){
+            temp_jeu = new Jeu(this);
+            int hmsize = temp_jeu.hm.size();
+            switch (k) {
+                case 0:
+                    temp_jeu.void_action(Direction.gauche);
+                    break;
+                case 1:
+                    temp_jeu.void_action(Direction.droite);
+                    break;
+                case 2:
+                    temp_jeu.void_action(Direction.haut);
+                    break;
+                case 3:
+                    temp_jeu.void_action(Direction.bas);
+                    break;
+                default:
+                    break;
+            }
+            if (temp_jeu.hm.size()<hmsize){//si il y a eu un mouvement effectif alors c'est forcement une fusion (car grille pleine)
+                hasChanged = true;
+            }
         }
         if (!hasChanged){
             System.out.println("GAME OVER");
@@ -328,7 +378,6 @@ public class Jeu extends Observable {
             printWriter.print(getValeur(i,tabCases.length-1));
             printWriter.println();
         }
-
         printWriter.close();
     }
 
