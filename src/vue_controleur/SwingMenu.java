@@ -9,7 +9,7 @@ import modele.Jeu;
 
 public class SwingMenu extends JMenuBar {
     private Jeu jeu;
-    
+    private JLabel hsL, scoreL;
     
     public SwingMenu(Jeu _jeu) {
         jeu = _jeu;
@@ -67,7 +67,21 @@ public class SwingMenu extends JMenuBar {
         item.addActionListener(afficherMenu);
         actionMenu.add(item);
 
+        JPanel scoresPane = new JPanel();
+        scoresPane.add(new JLabel("HIGHSCORE:"));
+        hsL = new JLabel(Integer.toString(jeu.getHighScore()));
+        scoresPane.add(hsL);
+        scoresPane.add(new JLabel("SCORE:"));
+        scoreL = new JLabel(Integer.toString(jeu.getScore()));
+        scoresPane.add(scoreL);
+
         add(partieMenu);
         add(actionMenu);
+        add(scoresPane);
+    }
+
+    public void update(){
+        hsL.setText(Integer.toString(jeu.getHighScore()));
+        scoreL.setText(Integer.toString(jeu.getScore()));
     }
 }

@@ -37,16 +37,17 @@ public class Swing2048 extends JFrame implements Observer {
         new Color(237,197,63),//1024
         new Color(237,194,46),//2048
     };
+    private SwingMenu menuBar;
 
 
     public Swing2048(Jeu _jeu) {
         jeu = _jeu;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
-        setJMenuBar(new SwingMenu(jeu));
+        menuBar = new SwingMenu(jeu);
+        setJMenuBar(menuBar);
+        
         tabC = new JLabel[jeu.getSize()][jeu.getSize()];
-
-        //JPanel headerPane
 
         JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
 
@@ -125,23 +126,6 @@ public class Swing2048 extends JFrame implements Observer {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    // for (int i = 0; i < jeu.getSize(); i++) {
-                    //     for (int j = 0; j < jeu.getSize(); j++) {
-                    //         Case c = jeu.getCase(i, j);
-    
-                    //         if (c == null) {
-    
-                    //             tabC[i][j].setText("");
-                    //             tabC[i][j].setBackground(bg_colors[0]);
-    
-                    //         } else {
-                    //             tabC[i][j].setText(c.getValeur() + "");
-                    //             tabC[i][j].setBackground(bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
-                    //         }
-    
-    
-                    //     }
-                    // }
                 }
             });
         }
@@ -170,5 +154,7 @@ public class Swing2048 extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         rafraichir();
+        menuBar.update();
+
     }
 }
