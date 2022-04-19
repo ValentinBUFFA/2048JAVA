@@ -14,6 +14,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Pour les boutons, utiliser menus de navigation?
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
 - Ajouter des keybinds pour (presque) tout
+- Deux Joueurs
 
 ###### Barre de menus
 - Page d'aide avec les keybindings
