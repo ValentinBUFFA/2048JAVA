@@ -51,7 +51,7 @@ public class Swing2048 extends JFrame implements Observer {
 
         JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
 
-        Font font = new Font("Serif", Font.BOLD, 40);
+        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 
         for (int i = 0; i < jeu.getSize(); i++) {
             for (int j = 0; j < jeu.getSize(); j++) {
