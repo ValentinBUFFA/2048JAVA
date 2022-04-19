@@ -23,8 +23,9 @@ public class Case {
         return jeu;
     }
     
-    public void deplacer(Direction d){
+    public boolean deplacer(Direction d){ // Retourne true s'il y a eu changement, false sinon.
         Point pt = this.jeu.hm.get(this); 
+        boolean hasChanged = true;
         int i = pt.x;// les coordonnées du point sont inversées
         int j = pt.y;// pour correspondre au point de vue "matrice"
         Case voisin;
@@ -51,7 +52,7 @@ public class Case {
             }
         }while (voisin == null);
         //k correspond au nombre de pas effectués dans la direction d pour arriver à la case avant le premier voisin non null
-
+        
         //Si fusion possible: on fusionne
         if (voisin.getValeur() == this.getValeur() && voisin.state){
             voisin.doubler();
@@ -61,21 +62,22 @@ public class Case {
             jeu.supprimerCase(this, i, j);
             switch (d) {
                 case gauche:
-                    jeu.ajouterCase(this, i, j-k);
+                    hasChanged = jeu.ajouterCase(this, i, j-k);
                     break;
                 case droite:
-                    jeu.ajouterCase(this, i, j+k);
+                    hasChanged = jeu.ajouterCase(this, i, j+k);
                     break;
                 case bas:
-                    jeu.ajouterCase(this, i+k, j);
+                    hasChanged = jeu.ajouterCase(this, i+k, j);
                     break;
                 case haut:
-                    jeu.ajouterCase(this, i-k, j);
+                    hasChanged = jeu.ajouterCase(this, i-k, j);
                     break;
                 default:
                     break;
             }
         }
+        return hasChanged;
     }
 
     public void doubler(){

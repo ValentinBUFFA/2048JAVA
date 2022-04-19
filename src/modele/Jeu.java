@@ -94,8 +94,9 @@ public class Jeu extends Observable {
 
     }
 
-    public void void_action(Direction d){
+    public boolean void_action(Direction d){       // Retourne true s'il y a eu changement, false sinon.
         int ii,jj;
+        boolean hasChanged = false;
         for(int i = 0; i<tabCases.length; i++){
             ii = i;
             if (d == Direction.bas){
@@ -107,7 +108,7 @@ public class Jeu extends Observable {
                     jj = (tabCases.length-1-j);
                 }
                 if (tabCases[ii][jj] != null){
-                    tabCases[ii][jj].deplacer(d);
+                    hasChanged = tabCases[ii][jj].deplacer(d);
                 }
             }
             //System.out.println();
@@ -119,6 +120,7 @@ public class Jeu extends Observable {
                 }
             }
         }
+        return hasChanged;
     }
 
     public void action(Direction d){
@@ -128,11 +130,12 @@ public class Jeu extends Observable {
                     System.out.println("GAME OVER");
                     return;
                 }
-                void_action(d);
-                if(hm.size()<tabCases.length*tabCases.length){
+
+                if(hm.size()<tabCases.length*tabCases.length && void_action(d)){
                     ajouterRnd();
+                } else {
+
                 }
-                //affichageDebug();
                 System.out.println();
                 setChanged();
                 notifyObservers();
@@ -164,9 +167,9 @@ public class Jeu extends Observable {
         hm.remove(c);
     }
 
-    //Renvoie false si la coordonnée de la grille de jeu n'est pas vide
+    //Renvoie false si la case ne change pas de place
     public boolean ajouterCase(Case c, int i, int j){
-        if (tabCases[i][j]!=null){
+        if (tabCases[i][j]!=null && c == tabCases[i][j]){
             return false;            
         }
         tabCases[i][j] = c;
@@ -264,7 +267,7 @@ public class Jeu extends Observable {
 
     //Renvoie true si aucun soucis
     public boolean undoMove(){
-        HashMap<Case, Point> new_hm = historique.getLastHM();
+        HashMap<Case, Point> new_hm = historique.moveBackwardHM();
         if (new_hm != null){
             //reconstruire la grille grace a la nouvelle hm
             construireGrille(new_hm);
@@ -282,7 +285,7 @@ public class Jeu extends Observable {
 
     //Renvoie true si aucun soucis
     public boolean redoMove(){
-        HashMap<Case, Point> new_hm = historique.getNextHM();
+        HashMap<Case, Point> new_hm = historique.moveForwardHM();
         if (new_hm != null){
             //reconstruire la grille grace a la nouvelle hm
             construireGrille(new_hm);
