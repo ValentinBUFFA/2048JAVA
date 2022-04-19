@@ -10,7 +10,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Affichage au lancement (reprendre partie, choisir taille, etc)
 - [V] Bouton/keybind pour annuler un coup
 - [V] Bouton/keybind pour sauvegarder la partie
-- Afficher le highscore, et le temps de la partie actuelle
+- [V] Afficher le highscore, et le temps de la partie actuelle
 - [V] Pour les boutons, utiliser menus de navigation?
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
 
