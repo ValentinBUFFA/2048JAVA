@@ -176,7 +176,8 @@ public class Jeu extends Observable {
         //System.out.println("a"+i+" "+j);
     }
 
-    public boolean mouvementCase(Case c, int i, int j) {    // Retourne false si la case ne fera pas de mouvement
+    // Retourne false si la case ne fera pas de mouvement
+    public boolean mouvementCase(Case c, int i, int j) {    
         if(tabCases[i][j] == c) {
             return false;
         } else {
