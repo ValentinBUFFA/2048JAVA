@@ -23,6 +23,7 @@ public class SwingMenu extends JMenuBar {
                         } catch (IOException e) {
                             e.printStackTrace();
                         } break;
+                    case "Restaurer": jeu.loadFromFile(); break;
                     case "Annuler": jeu.undoMove(); break;
                     case "Refaire": jeu.redoMove(); break;
 
@@ -36,6 +37,9 @@ public class SwingMenu extends JMenuBar {
         };
         JMenu partieMenu = new JMenu("Partie");
         JMenuItem item = new JMenuItem("Sauver", 'S');
+        item.addActionListener(afficherMenu);
+        partieMenu.add(item);
+        item = new JMenuItem("Restaurer", 'E');
         item.addActionListener(afficherMenu);
         partieMenu.add(item);
 
