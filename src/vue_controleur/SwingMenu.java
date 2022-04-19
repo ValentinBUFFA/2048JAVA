@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.swing.*;
 
-import modele.Case;
 import modele.Direction;
 import modele.Jeu;
 
