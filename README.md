@@ -28,6 +28,9 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Enregistrer le score dans l'historique
 - [V] Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
 - (Optimiser la vérification de fin de partie en gardant en mémoire les etats de la grille)  
+- Deux Joueurs
+- Radomizer le début
+- Exec pool
 
 
 ### KNOWN BUGS
@@ -35,3 +38,4 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [FIXED] gestion du score dans l'historique
 - revenir en arriere quand la partie est perdue produit des comportements FORTEMENT indésirables
 - [FIXED] blink bitch se déclenche à des moments inopportuns (bas, gauche, gauche)
+- Bug à la restauration d'une partie après un game over
