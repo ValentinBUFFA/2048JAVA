@@ -233,7 +233,6 @@ public class Jeu extends Observable {
         Case[][] tab_copy = tool.Tool.copy2Darray(this.tabCases);
         HashMap<Case, Point> hm_copy = tool.Tool.copyHashMap(this.hm);
         //ensuite on teste successivement chaque deplacement, en reinitialisant le jeu à son etat initial entre chaque
-        //TODO faire du multithreading pour tester les 4 en //
         for(int k = 0; k<4; k++){
             switch (k) {
                 case 0:
@@ -270,7 +269,7 @@ public class Jeu extends Observable {
         if(hm.size() < tabCases.length*tabCases.length){
             return false;
         }
-
+        //TODO: créer 4 jeux temporaires et tester les directions en parallèle avec du multithreading
         Jeu temp_jeu;
         boolean hasChanged = false;
         for(int k = 0; k<4; k++){
