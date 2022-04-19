@@ -134,13 +134,13 @@ public class Jeu extends Observable {
 
                 if(hm.size()<tabCases.length*tabCases.length && void_action(d)){
                     ajouterRnd();
+                    historique.ajouterHist(hm, score);
                 } else {
                     System.out.println("blink bitch");
                 }
                 System.out.println();
                 setChanged();
                 notifyObservers();
-                historique.ajouterHist(hm, score);
                 testFinPartie();
             }
 
