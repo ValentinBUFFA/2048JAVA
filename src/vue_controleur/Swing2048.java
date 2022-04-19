@@ -9,7 +9,6 @@ import tool.Tool;//Pour log2
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import javafx.scene.paint.Color;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
