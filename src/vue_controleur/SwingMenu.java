@@ -84,4 +84,17 @@ public class SwingMenu extends JMenuBar {
         hsL.setText(Integer.toString(jeu.getHighScore()));
         scoreL.setText(Integer.toString(jeu.getScore()));
     }
+
+    public void blink(){
+        this.setBackground(new java.awt.Color(87,74,62));
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+                this.setBackground(new java.awt.Color(255,255,255));
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
+    }
 }

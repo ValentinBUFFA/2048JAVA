@@ -26,7 +26,7 @@ public class Swing2048 extends JFrame implements Observer {
     // tableau de cases : i, j -> case graphique
     private JLabel[][] tabC;
     private Jeu jeu;
-    private java.awt.Color[] bg_colors = new java.awt.Color[]{
+    private java.awt.Color[] tile_bg_colors = new java.awt.Color[]{
         new java.awt.Color(77,63,40),//null
         new java.awt.Color(57,42,26),//2
         new java.awt.Color(71,55,23),//4
@@ -40,6 +40,7 @@ public class Swing2048 extends JFrame implements Observer {
         new java.awt.Color(237,197,63),//1024
         new java.awt.Color(237,194,46),//2048
     };
+    private java.awt.Color bg_color = new java.awt.Color(87,74,62);
     private SwingMenu menuBar;
 
 
@@ -53,12 +54,13 @@ public class Swing2048 extends JFrame implements Observer {
         tabC = new JLabel[jeu.getSize()][jeu.getSize()];
 
         JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
+        contentPane.setBackground(bg_color);
 
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 
         for (int i = 0; i < jeu.getSize(); i++) {
             for (int j = 0; j < jeu.getSize(); j++) {
-                Border border = BorderFactory.createLineBorder(new java.awt.Color(87,74,62), 5);
+                Border border = BorderFactory.createLineBorder(bg_color, 5);
                 tabC[i][j] = new JLabel();
                 tabC[i][j].setFont(font);
                 tabC[i][j].setBorder(border);
@@ -92,11 +94,11 @@ public class Swing2048 extends JFrame implements Observer {
                         if (c == null) {
 
                             tabC[i][j].setText("");
-                            tabC[i][j].setBackground(bg_colors[0]);
+                            tabC[i][j].setBackground(tile_bg_colors[0]);
 
                         } else {
                             tabC[i][j].setText(c.getValeur() + "");
-                            tabC[i][j].setBackground(bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
+                            tabC[i][j].setBackground(tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
                         }
 
 
@@ -134,5 +136,6 @@ public class Swing2048 extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         rafraichir();
         menuBar.update();
+        menuBar.blink();
     }
 }
