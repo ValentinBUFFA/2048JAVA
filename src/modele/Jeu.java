@@ -131,23 +131,13 @@ public class Jeu extends Observable {
                     System.out.println("GAME OVER");
                     return;
                 }
-<<<<<<< HEAD
 
                 if(hm.size()<tabCases.length*tabCases.length && void_action(d)){
-=======
-                System.out.println("a");
-                void_action(d);
-                if(hm.size()<tabCases.length*tabCases.length){
->>>>>>> b5a07718449ee31b6667a62b17475f3fffb87d0d
                     ajouterRnd();
                 } else {
                     System.out.println("blink bitch");
                 }
-<<<<<<< HEAD
                 System.out.println();
-=======
-                affichageDebug();
->>>>>>> b5a07718449ee31b6667a62b17475f3fffb87d0d
                 setChanged();
                 notifyObservers();
                 historique.ajouterHist(hm, score);
@@ -346,15 +336,11 @@ public class Jeu extends Observable {
     //TODO charger depuis sauvegarde
     public boolean loadFromFile(){
         try {
-<<<<<<< HEAD
-            Scanner saveScanner = new Scanner(new File("save.csv"));
-=======
             File saveFile = new File("save.csv");
             if (!saveFile.exists()){
                 return false;
             }
             Scanner saveScanner = new Scanner(saveFile);
->>>>>>> b5a07718449ee31b6667a62b17475f3fffb87d0d
             saveScanner.useDelimiter(",|\\n");
 
             //On reinitialise le jeu avec les nouveaux attributs
@@ -405,11 +391,6 @@ public class Jeu extends Observable {
     }
 
     public int loadHighScore() throws IOException{
-<<<<<<< HEAD
-        Scanner hScanner = new Scanner(new File("highscore.csv"));
-        hScanner.reset();
-        if(!hScanner.hasNextInt()) {
-=======
         File hsFile = new File("highscore.csv");
         if (!hsFile.exists()){
             return 0;
@@ -418,7 +399,6 @@ public class Jeu extends Observable {
         hScanner.reset();
         if(!hScanner.hasNextInt()) {
             hScanner.close();
->>>>>>> b5a07718449ee31b6667a62b17475f3fffb87d0d
             return 0;
         }
         int hs = hScanner.nextInt();
@@ -429,15 +409,9 @@ public class Jeu extends Observable {
     public void updateHighScore() {
         PrintWriter hsWriter;
         try {
-<<<<<<< HEAD
-            hswriter = new PrintWriter(new FileWriter("highscore.csv"));
-            hswriter.print(highscore);
-            hswriter.close();
-=======
             hsWriter = new PrintWriter(new FileWriter("highscore.csv"));
             hsWriter.print(highscore);
             hsWriter.close();
->>>>>>> b5a07718449ee31b6667a62b17475f3fffb87d0d
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
