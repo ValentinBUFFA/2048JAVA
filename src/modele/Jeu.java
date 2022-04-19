@@ -11,7 +11,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.swing.text.Position;
 @SuppressWarnings( "deprecation" )
 
 public class Jeu extends Observable {
