@@ -21,7 +21,6 @@ public class Jeu extends Observable {
     public boolean gameover;
     private Historique historique;
     private int score, highscore;
-    PrintWriter hswriter;
 
     public Jeu(int size) throws IOException{
         tabCases = new Case[size][size];
@@ -32,8 +31,8 @@ public class Jeu extends Observable {
         historique = new Historique(10); // On garde les 10 coups précédents en mémoire
         historique.ajouterHist(hm);
         score = 0;
-        hswriter = new PrintWriter(new FileWriter("highscore.csv"));
         highscore = loadHighScore();
+        System.out.println(highscore);
     }
 
     public void affichageDebug(){
@@ -330,13 +329,16 @@ public class Jeu extends Observable {
     public int getScore(){
         return score;
     }
+
     public void ajouterScore(int n){
         score+=n;
         System.out.println(score);
         if (score>highscore){
             highscore = score;
+            updateHighScore();
         }
     }
+
     public int getHighScore(){
         return highscore;
     }
@@ -344,9 +346,25 @@ public class Jeu extends Observable {
     public int loadHighScore() throws IOException{
         
         Scanner sc = new Scanner(new File("highscore.csv"));
+        sc.reset();
         if(!sc.hasNextInt()) {
             return 0;
         }
-        return sc.nextInt();
+        int hs = sc.nextInt();
+        sc.close();
+        return hs;
+    }
+
+    public void updateHighScore() {
+        PrintWriter hswriter;
+        try {
+            hswriter = new PrintWriter(new FileWriter("highscore.csv"));
+            System.out.println("PRINTED KIDDO");
+            hswriter.print(highscore);
+            hswriter.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
