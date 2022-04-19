@@ -46,6 +46,7 @@ public class Swing2048 extends JFrame implements Observer {
         setJMenuBar(new SwingMenu(jeu));
         tabC = new JLabel[jeu.getSize()][jeu.getSize()];
 
+        //JPanel headerPane
 
         JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
 
@@ -59,7 +60,6 @@ public class Swing2048 extends JFrame implements Observer {
                 tabC[i][j].setBorder(border);
                 tabC[i][j].setForeground(Color.white);
                 tabC[i][j].setOpaque(true);
-                // tabC[i][j].setBackground(Color.gray);
 
                 tabC[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 
