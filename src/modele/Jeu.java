@@ -95,9 +95,9 @@ public class Jeu extends Observable {
 
     }
 
-    public boolean void_action(Direction d){       // Retourne true s'il y a eu changement, false sinon.
+    public int void_action(Direction d){       // Retourne > 0 s'il y a eu changement, 0 sinon.
         int ii,jj;
-        boolean hasChanged = false;
+        int hasChanged = 0;
         for(int i = 0; i<tabCases.length; i++){
             ii = i;
             if (d == Direction.bas){
@@ -109,7 +109,7 @@ public class Jeu extends Observable {
                     jj = (tabCases.length-1-j);
                 }
                 if (tabCases[ii][jj] != null){
-                    hasChanged = tabCases[ii][jj].deplacer(d);
+                    hasChanged += tabCases[ii][jj].deplacer(d);
                 }
             }
         }
@@ -131,7 +131,7 @@ public class Jeu extends Observable {
                     return;
                 }
 
-                if(hm.size()<tabCases.length*tabCases.length && void_action(d)){
+                if(hm.size()<tabCases.length*tabCases.length && void_action(d) > 0){
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
                 } else {
@@ -175,11 +175,11 @@ public class Jeu extends Observable {
         //System.out.println("a"+i+" "+j);
     }
 
-    public boolean mouvementCase(Case c, int i, int j) {    // Retourne false si la case ne fera pas de mouvement
+    public int mouvementCase(Case c, int i, int j) {    // Retourne false si la case ne fera pas de mouvement
         if(tabCases[i][j] == c) {
-            return false;
+            return 0;
         } else {
-            return true;
+            return 1;
         }
     }
 

@@ -23,9 +23,9 @@ public class Case {
         return jeu;
     }
     
-    public boolean deplacer(Direction d){ // Retourne true s'il y a eu changement, false sinon.
+    public int deplacer(Direction d){ // Retourne true s'il y a eu changement, false sinon.
         Point pt = this.jeu.hm.get(this); 
-        boolean hasChanged = true;
+        int hasChanged = 0;
         int i = pt.x;// les coordonnées du point sont inversées
         int j = pt.y;// pour correspondre au point de vue "matrice"
         Case voisin;
@@ -62,22 +62,22 @@ public class Case {
             
             switch (d) {
                 case gauche:
-                    hasChanged = jeu.mouvementCase(this, i, j-k);
+                    hasChanged += jeu.mouvementCase(this, i, j-k);
                     jeu.supprimerCase(this, i, j);
                     jeu.ajouterCase(this, i, j-k);
                     break;
                 case droite:
-                    hasChanged = jeu.mouvementCase(this, i, j+k);
+                    hasChanged += jeu.mouvementCase(this, i, j+k);
                     jeu.supprimerCase(this, i, j);  
                     jeu.ajouterCase(this, i, j+k);
                     break;
                 case bas:
-                    hasChanged = jeu.mouvementCase(this, i+k, j);
+                    hasChanged += jeu.mouvementCase(this, i+k, j);
                     jeu.supprimerCase(this, i, j);
                     jeu.ajouterCase(this, i+k, j);
                     break;
                 case haut:
-                    hasChanged = jeu.mouvementCase(this, i-k, j);
+                    hasChanged += jeu.mouvementCase(this, i-k, j);
                     jeu.supprimerCase(this, i, j);
                     jeu.ajouterCase(this, i-k, j);
                     break;
