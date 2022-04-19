@@ -15,6 +15,11 @@ public class Case {
     public Case(int _valeur) {
         valeur = _valeur;
     }
+    public Case(Case c){
+        valeur = c.valeur;
+        jeu = c.jeu;
+        state = true;
+    }
 
     public int getValeur() {
         return valeur;

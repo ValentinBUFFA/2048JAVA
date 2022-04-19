@@ -27,7 +27,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Enregistrer le score
 - Enregistrer le score dans l'historique
 - [V] Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
-- (Optimiser la verification de fin de partie en gardant en mémoire les etats de la grille)  
+- (Optimiser la vérification de fin de partie en gardant en mémoire les etats de la grille)  
 
 
 ### KNOWN BUGS

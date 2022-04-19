@@ -26,7 +26,7 @@ public class Historique {
             //System.out.println("fi");
         }
 
-        System.out.println("+:"+first_index+" "+index+" "+" "+last_index);
+        //System.out.println("+:"+first_index+" "+index+" "+" "+last_index);
 
         hm_hist[index%hm_hist.length] = tool.Tool.deepCopyHashMap(hm);
         score_hist[index%hm_hist.length] = score;
