@@ -56,6 +56,7 @@ public class Case {
         //Si fusion possible: on fusionne
         if (voisin.getValeur() == this.getValeur() && voisin.state){
             voisin.doubler();
+            hasChanged++;
             jeu.supprimerCase(this, i, j);
             //System.out.println("d"+i+" "+j);
         }else{//sinon, on relocalise la case à l'endroit adapté 
