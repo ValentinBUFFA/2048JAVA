@@ -328,7 +328,11 @@ public class Jeu extends Observable {
     //TODO charger depuis sauvegarde
     public boolean loadFromFile(){
         try {
-            Scanner saveScanner = new Scanner(new File("save.csv"));
+            File saveFile = new File("save.csv");
+            if (!saveFile.exists()){
+                return false;
+            }
+            Scanner saveScanner = new Scanner(saveFile);
             saveScanner.useDelimiter(",|\\n");
 
             //On reinitialise le jeu avec les nouveaux attributs
@@ -379,9 +383,14 @@ public class Jeu extends Observable {
     }
 
     public int loadHighScore() throws IOException{
-        Scanner hScanner = new Scanner(new File("highscore.csv"));
+        File hsFile = new File("highscore.csv");
+        if (!hsFile.exists()){
+            return 0;
+        }
+        Scanner hScanner = new Scanner(hsFile);
         hScanner.reset();
         if(!hScanner.hasNextInt()) {
+            hScanner.close();
             return 0;
         }
         int hs = hScanner.nextInt();
@@ -390,11 +399,11 @@ public class Jeu extends Observable {
     }
 
     public void updateHighScore() {
-        PrintWriter hswriter;
+        PrintWriter hsWriter;
         try {
-            hswriter = new PrintWriter(new FileWriter("highscore.csv"));
-            hswriter.print(highscore);
-            hswriter.close();
+            hsWriter = new PrintWriter(new FileWriter("highscore.csv"));
+            hsWriter.print(highscore);
+            hsWriter.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
