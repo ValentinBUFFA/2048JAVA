@@ -129,12 +129,11 @@ public class Jeu extends Observable {
                     System.out.println("GAME OVER");
                     return;
                 }
-                System.out.println("a");
                 void_action(d);
                 if(hm.size()<tabCases.length*tabCases.length){
                     ajouterRnd();
                 }
-                affichageDebug();
+                //affichageDebug();
                 setChanged();
                 notifyObservers();
                 historique.ajouterHist(hm, score);
