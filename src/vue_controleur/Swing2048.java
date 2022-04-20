@@ -36,15 +36,14 @@ public class Swing2048 extends JFrame implements Observer {
         new java.awt.Color(237,194,46),//2048
     };
     private Character[] gm = new Character[] {
-        new Character('G'),
-        new Character('A'),
-        new Character('M'),
-        new Character('E'),
-        new Character('O'),
-        new Character('V'),
-        new Character('E'),
-        new Character('R'),
-
+        'G',
+        'A',
+        'M',
+        'E',
+        'O',
+        'V',
+        'E',
+        'R',
     };
     private java.awt.Color bg_color = new java.awt.Color(87,74,62);
     private SwingMenu menuBar;
@@ -167,7 +166,7 @@ public class Swing2048 extends JFrame implements Observer {
                     case KeyEvent.VK_S: jeu.saveToFile(); menuBar.afficherSave(); break;
                     case KeyEvent.VK_R: jeu.loadFromFile(); break;
                     case KeyEvent.VK_N: menuBar.nouvellePartiePopUp(); break;
-                    
+
                 }
             }
         });
