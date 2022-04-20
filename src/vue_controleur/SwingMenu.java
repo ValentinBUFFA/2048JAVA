@@ -46,7 +46,7 @@ public class SwingMenu extends JMenuBar {
                             System.out.println("Erreur : fichier de sauvergarde introuvable");
                         }
                         break;
-                    case "Nouvelle Partie": jeu.resetJeu(); break;
+                    case "Nouvelle Partie": nouvellePartiePopUp(); break;
                     case "Annuler": jeu.undoMove(); break;
                     case "Refaire": jeu.redoMove(); break;
 
@@ -142,13 +142,18 @@ public class SwingMenu extends JMenuBar {
 
     public void nouvellePartiePopUp(){
         JFrame popup = new JFrame();
-        int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
+        try {
+            int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
+            if (new_size>0){
+                jeu.resetJeu(new_size);
+            }
+        } catch (Exception e) {
+            return;
+        }
 
-        System.out.println(new_size); 
     }
-    
+
     public boolean search(String entry) {
-        String s;
         for (int i = 0; i < items.length; i++) {
             for (int j = 0; j < items[i].length; j++) {
                 if(items[i][j].getActionCommand().equals(entry))  {
