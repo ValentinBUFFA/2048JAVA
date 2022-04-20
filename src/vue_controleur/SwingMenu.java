@@ -8,6 +8,7 @@ import modele.Direction;
 import modele.Jeu;
 
 public class SwingMenu extends JMenuBar {
+
     private Jeu jeu;
     private JLabel hsL, scoreL;
     private java.awt.Color bg_color = new java.awt.Color(77,63,40);
@@ -95,7 +96,14 @@ public class SwingMenu extends JMenuBar {
         add(partieMenu);
         add(actionMenu);
         add(scoresPane);
+<<<<<<< HEAD
         
+=======
+
+        this.setBackground(bg_color);
+        this.setOpaque(true);
+        this.setBorder(BorderFactory.createEmptyBorder());
+>>>>>>> 7ab4a8b2463d5a5b144f8a19609c72db0d3d2c63
     }
 
     public void update(){
