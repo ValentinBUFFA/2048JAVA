@@ -23,11 +23,7 @@ public class SwingMenu extends JMenuBar {
             public void actionPerformed(ActionEvent event) {
                 System.out.println(event.getActionCommand());
                 switch (event.getActionCommand()) {
-                    case "Sauver": try {
-                            jeu.saveToFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } break;
+                    case "Sauver": jeu.saveToFile(); break;
                     case "Restaurer": jeu.loadFromFile(); break;
                     case "Annuler": jeu.undoMove(); break;
                     case "Refaire": jeu.redoMove(); break;

@@ -6,16 +6,16 @@ VUE_CONTROLEUR: Console2048, Swing2048
 #### VUE:
 - [N] Resize la taille de la police pour eviter l'overflow sur l'affichage graphique
 - [N] Passer la police en vectoriel?
-- Affichage lors de gameover
 - [N] Affichage au lancement (reprendre partie, choisir taille, etc)
 - [V] Bouton/keybind pour annuler un coup
 - [V] Bouton/keybind pour sauvegarder la partie
 - [V] Afficher le highscore, et le temps de la partie actuelle
 - [V] Pour les boutons, utiliser menus de navigation?
+- [V] Blink de la barre de menu
+- Affichage lors de gameover
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
 - Ajouter des keybinds pour (presque) tout
 - Deux Joueurs
-- [V] Blink de la barre de menu
 
 ###### Barre de menus
 - Page d'aide avec les keybindings
@@ -30,11 +30,12 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Enregistrer le score
 - [V] Enregistrer le score dans l'historique
 - [V] Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
+- [V] Declencher blink quand il faut (historique limites, blink bitch)
 - Deux Joueurs
 - Randomizer le début
 - Exec pool
-- [V] Declencher blink quand il faut (historique limites, blink bitch)
 
+- Clean up code
 
 ### KNOWN BUGS
 - [FIXED] !testFinPartie not working properly 
