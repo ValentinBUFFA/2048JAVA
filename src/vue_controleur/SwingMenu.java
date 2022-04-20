@@ -58,7 +58,7 @@ public class SwingMenu extends JMenuBar {
 
                     case "Rechercher": 
                         if(search(searchfField.getText())) {
-                            
+                            System.out.println("bite de debug");
                         }
                         break;
 
