@@ -31,7 +31,7 @@ public class Case {
     public int deplacer(Direction d){ // Retourne true s'il y a eu changement, false sinon.
         Point pt = this.jeu.hm.get(this); 
         int hasChanged = 0;
-        int i = pt.x;// les coordonnées du point sont inversées
+        int i = pt.x;// les coordonnées du point sont "inversées"
         int j = pt.y;// pour correspondre au point de vue "matrice"
         Case voisin;
         int k = -1;

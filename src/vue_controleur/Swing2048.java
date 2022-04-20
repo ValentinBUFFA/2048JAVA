@@ -73,6 +73,7 @@ public class Swing2048 extends JFrame implements Observer {
                 contentPane.add(tabC[i][j]);
             }
         }
+        this.setBackground(tile_bg_colors[0]);
         setContentPane(contentPane);
         ajouterEcouteurClavier();
         rafraichir();
@@ -136,6 +137,9 @@ public class Swing2048 extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         rafraichir();
         menuBar.update();
-        menuBar.blink();
+        if (jeu.mustBlink){
+            menuBar.blink();
+            jeu.mustBlink = false;
+        }
     }
 }
