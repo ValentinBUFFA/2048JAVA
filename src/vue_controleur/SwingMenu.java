@@ -175,7 +175,7 @@ public class SwingMenu extends JMenuBar {
         JFrame popup = new JFrame();
         try {
             int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille", jeu.getSize()));
-            if (new_size > 0){
+            if (new_size > 1){
                 jeu.resetJeu(new_size);
             }
         } catch (Exception e) {
