@@ -38,32 +38,8 @@ public class SwingMenu extends JMenuBar {
 
         ActionListener afficherMenu = new ActionListener(){
             public void actionPerformed(ActionEvent event) {
-                System.out.println(event.getActionCommand());
-                switch (event.getActionCommand()) {
-                    case "Sauver": jeu.saveToFile(); break;
-                    case "Restaurer": 
-                        if(!jeu.loadFromFile()) {
-                            System.out.println("Erreur : fichier de sauvergarde introuvable");
-                        }
-                        break;
-                    case "Nouvelle Partie": jeu.resetJeu(); break;
-                    case "Annuler": jeu.undoMove(); break;
-                    case "Refaire": jeu.redoMove(); break;
-
-                    case "Haut": jeu.action(Direction.haut); break;
-                    case "Bas": jeu.action(Direction.bas); break;
-                    case "Gauche": jeu.action(Direction.gauche); break;
-                    case "Droite": jeu.action(Direction.droite); break;
-
-                    case "Rechercher": 
-                        if(search(searchfField.getText())) {
-                            System.out.println("bite de debug");
-                        }
-                        break;
-
-                }
-
-              }
+                doAction(event.getActionCommand());
+            }
         };
         JMenu partieMenu = new JMenu("Partie");
         partieMenu.setForeground(java.awt.Color.white);
@@ -121,6 +97,32 @@ public class SwingMenu extends JMenuBar {
         
     }
 
+    public void doAction(String event) {
+        switch (event) {
+            case "Sauver": jeu.saveToFile(); break;
+            case "Restaurer": 
+                if(!jeu.loadFromFile()) {
+                    System.out.println("Erreur : fichier de sauvergarde introuvable");
+                }
+                break;
+            case "Nouvelle Partie": jeu.resetJeu(); break;
+            case "Annuler": jeu.undoMove(); break;
+            case "Refaire": jeu.redoMove(); break;
+
+            case "Haut": jeu.action(Direction.haut); break;
+            case "Bas": jeu.action(Direction.bas); break;
+            case "Gauche": jeu.action(Direction.gauche); break;
+            case "Droite": jeu.action(Direction.droite); break;
+            
+            case "Rechercher": 
+                String s = searchfField.getText();
+                if(searchResultPopUp(search(s))) {
+                    doAction(s);
+                }
+                break;
+        }
+    }
+
     public void update(){
         hsL.setText(Integer.toString(jeu.getHighScore()));
         scoreL.setText(Integer.toString(jeu.getScore()));
@@ -147,8 +149,23 @@ public class SwingMenu extends JMenuBar {
         System.out.println(new_size); 
     }
     
+    public boolean searchResultPopUp(boolean b) {
+        JFrame jFrame = new JFrame();
+        if (b) {
+            int result = JOptionPane.showConfirmDialog(jFrame, "Commande existante, voulez-vous l'executer ? Vous êtes sûr ? Réfléchissez bien, on a tout notre temps, ne vous inquiétez pas ^^ ", "Aide", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if(result == JOptionPane.YES_OPTION) {
+                return true;
+            } 
+            
+        } else {
+            JOptionPane.showMessageDialog(jFrame, "Commande inexistante ! salope putputpute sssalope", "Aide", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return false;
+        
+    }
+    
     public boolean search(String entry) {
-        String s;
         for (int i = 0; i < items.length; i++) {
             for (int j = 0; j < items[i].length; j++) {
                 if(items[i][j].getActionCommand().equals(entry))  {
@@ -157,6 +174,7 @@ public class SwingMenu extends JMenuBar {
                 
             }
         }
+        
         return false;
     }
 }
