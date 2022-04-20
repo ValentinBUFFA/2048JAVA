@@ -18,7 +18,7 @@ public class SwingMenu extends JMenuBar {
         jeu = _jeu;
         
        
-        this.setBackground(bg_color);
+        super.setBackground(bg_color);
         this.setBorder(BorderFactory.createEmptyBorder());
 
         ActionListener afficherMenu = new ActionListener(){
@@ -96,14 +96,7 @@ public class SwingMenu extends JMenuBar {
         add(partieMenu);
         add(actionMenu);
         add(scoresPane);
-<<<<<<< HEAD
         
-=======
-
-        this.setBackground(bg_color);
-        this.setOpaque(true);
-        this.setBorder(BorderFactory.createEmptyBorder());
->>>>>>> 7ab4a8b2463d5a5b144f8a19609c72db0d3d2c63
     }
 
     public void update(){
