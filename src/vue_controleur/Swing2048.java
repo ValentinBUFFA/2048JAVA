@@ -169,10 +169,6 @@ public class Swing2048 extends JFrame implements Observer {
                     case KeyEvent.VK_S: jeu.saveToFile(); menuBar.afficherSave(); break;
                     case KeyEvent.VK_R: jeu.loadFromFile(); break;
                     case KeyEvent.VK_N: menuBar.nouvellePartiePopUp(); break;
-<<<<<<< HEAD
-
-=======
->>>>>>> 06682d8caab5c8867177cb72db40f447cac726e0
                 }
             }
         });
