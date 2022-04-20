@@ -140,14 +140,8 @@ public class Jeu extends Observable {
     public void action(Direction d){
         new Thread() { // permet de libérer le processus graphique ou de la console
             public void run() {
-                if (gameover){
-                    System.out.println("Game OVER");
-                    affichageDebug();
 
-                    return;
-                }
-
-                if(void_action(d) > 0 /*&& hm.size()<tabCases.length*tabCases.length*/){
+                if(void_action(d) > 0){
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
                     affichageDebug();
@@ -158,9 +152,9 @@ public class Jeu extends Observable {
                     affichageDebug();
                 }
                 System.out.println();
+                testFinPartie();
                 setChanged();
                 notifyObservers();
-                testFinPartie();
             }
 
         }.start();

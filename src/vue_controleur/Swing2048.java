@@ -40,6 +40,18 @@ public class Swing2048 extends JFrame implements Observer {
         new java.awt.Color(237,197,63),//1024
         new java.awt.Color(237,194,46),//2048
     };
+
+    private String[] gm = new String[] {
+        new String("G"),
+        new String("A"),
+        new String("M"),
+        new String("E"),
+        new String("O"),
+        new String("V"),
+        new String("E"),
+        new String("R"),
+
+    };
     private java.awt.Color bg_color = new java.awt.Color(87,74,62);
     private SwingMenu menuBar;
 
@@ -88,23 +100,51 @@ public class Swing2048 extends JFrame implements Observer {
         SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
             @Override
             public void run() {
-                for (int i = 0; i < jeu.getSize(); i++) {
-                    for (int j = 0; j < jeu.getSize(); j++) {
-                        Case c = jeu.getCase(i, j);
-
-                        if (c == null) {
-
-                            tabC[i][j].setText("");
-                            tabC[i][j].setBackground(tile_bg_colors[0]);
-
-                        } else {
-                            tabC[i][j].setText(c.getValeur() + "");
-                            tabC[i][j].setBackground(tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
+                if(!jeu.gameover) {
+                    for (int i = 0; i < jeu.getSize(); i++) {
+                        for (int j = 0; j < jeu.getSize(); j++) {
+                            Case c = jeu.getCase(i, j);
+    
+                            if (c == null) {
+    
+                                tabC[i][j].setText("");
+                                tabC[i][j].setBackground(tile_bg_colors[0]);
+    
+                            } else {
+                                tabC[i][j].setText(c.getValeur() + "");
+                                tabC[i][j].setBackground(tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
+                            }
+    
+    
                         }
-
-
+                    }
+                } else {
+                    System.out.println("oeoeoe ta perdu sal con");
+                    
+                    for (int i = 0; i < jeu.getSize(); i++) {
+                        for (int j = 0; j < jeu.getSize(); j++) {
+                            Case c = jeu.getCase(i, j);
+    
+                            switch (i) {
+                                case 1:
+                                    tabC[i][j].setText(gm[j] + "");
+                                    tabC[i][j].setBackground(tile_bg_colors[0]);
+                                    break;
+                                case 2:
+                                    tabC[i][j].setText(gm[j + jeu.getSize()] + "");
+                                    tabC[i][j].setBackground(tile_bg_colors[0]);
+                                    break;
+                                default:
+                                    tabC[i][j].setText("");
+                                    tabC[i][j].setBackground(tile_bg_colors[0]);
+                                    break;
+                            }
+    
+    
+                        }
                     }
                 }
+                
             
             }
         });
