@@ -421,11 +421,14 @@ public class Jeu extends Observable {
             }
             saveScanner.close();
 
+            gameover = false;
+            testFinPartie();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return false;
         }
+        
         setChanged();
         notifyObservers();
         return true;
