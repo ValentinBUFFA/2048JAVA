@@ -338,6 +338,8 @@ public class Jeu extends Observable {
                 printWriter.println();
             }
             printWriter.close();
+
+            System.out.println("Sauvegardé!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -354,7 +356,12 @@ public class Jeu extends Observable {
 
             // On reinitialise le jeu avec les nouveaux attributs
             score = saveScanner.nextInt();
+
             int size = saveScanner.nextInt();
+            if (size != tabCases.length){
+                sizeChanged = true;
+            }
+
             tabCases = new Case[size][size];
             historique = new Historique(10);
             hm = new HashMap<Case, Point>();
@@ -373,8 +380,12 @@ public class Jeu extends Observable {
             historique.ajouterHist(hm, score);
             saveScanner.close();
 
+            mustBlink = false;
+
             gameover = false;
             testFinPartie();
+            
+            System.out.println("Restoré!");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;

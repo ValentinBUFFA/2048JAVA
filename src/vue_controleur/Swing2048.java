@@ -144,7 +144,7 @@ public class Swing2048 extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (jeu.sizeChanged){
-
+            dessinerGrille();
             jeu.sizeChanged = false;
         }
         rafraichir();
@@ -172,10 +172,12 @@ public class Swing2048 extends JFrame implements Observer {
 
                 tabC[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 
-
                 contentPane.add(tabC[i][j]);
             }
         }
         setContentPane(contentPane);
+        resize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
+
+        //System.out.println("GRILLE DESSINÉE");
     }
 }
