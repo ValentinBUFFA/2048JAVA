@@ -451,4 +451,8 @@ public class Jeu extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public void resetJeu(){
+        resetJeu(tabCases.length);
+    }
 }
