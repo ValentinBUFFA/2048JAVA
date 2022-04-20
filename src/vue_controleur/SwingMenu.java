@@ -206,7 +206,6 @@ public class SwingMenu extends JMenuBar {
                 if(items[i][j].getActionCommand().equals(entry))  {
                     return true;
                 }
-                
             }
         }
         

@@ -75,17 +75,7 @@ public class Swing2048 extends JFrame implements Observer {
                 if(!jeu.gameover) {
                     for (int i = 0; i < jeu.getSize(); i++) {
                         for (int j = 0; j < jeu.getSize(); j++) {
-                            Case c = jeu.getCase(i, j);
-    
-                            if (c == null) {
-    
-                                tabC[i][j].setText("");
-                                tabC[i][j].setBackground(tile_bg_colors[0]);
-    
-                            } else {
-                                tabC[i][j].setText(c.getValeur() + "");
-                                tabC[i][j].setBackground(tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
-                            }
+                            rafraichirCase(i, j);
                         }
                     }
                 } else {                    
@@ -117,6 +107,47 @@ public class Swing2048 extends JFrame implements Observer {
         });
     }
 
+    private void apparaitreCase(int i, int j, Color dest){
+        try{
+        new Thread(() -> {
+            Case c = jeu.getCase(i, j);
+            int k = 1;
+            while (k<=10){
+                if(c != jeu.getCase(i, j)){
+                    rafraichirCase(i, j);
+                    break;
+                }
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                tabC[i][j].setBackground(tool.Tool.fadeTo(tile_bg_colors[0], dest, k*100));
+                k++;
+            }
+            }).start();
+        }
+        catch (Exception e){
+            System.err.println(e);
+        }
+    }
+
+    private void rafraichirCase(int i, int j){
+        Case c = jeu.getCase(i, j);
+        if (c == null) {
+            tabC[i][j].setText("");
+            tabC[i][j].setBackground(tile_bg_colors[0]);
+
+        } else {
+            tabC[i][j].setText(c.getValeur() + "");
+            Color col = tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)];
+            tabC[i][j].setBackground(col);
+            
+            if (i==jeu.newCasePoint.x && j==jeu.newCasePoint.y){
+                apparaitreCase(i, j, col);
+            }
+        }
+    } 
 
     /**
      * Correspond à la fonctionnalité de Contrôleur : écoute les évènements, et déclenche des traitements sur le modèle

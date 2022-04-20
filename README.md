@@ -16,7 +16,8 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Ajouter des keybinds pour (presque) tout
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
 - Deux Joueurs
-- Commencer une partie à vide
+- [V] Commencer une partie à vide
+- Essayer le fade in/out en jouant sur l'opacité
 
 ###### Barre de menus
 - Page d'aide avec les keybindings

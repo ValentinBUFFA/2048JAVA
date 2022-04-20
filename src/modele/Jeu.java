@@ -23,6 +23,7 @@ public class Jeu extends Observable {
     public boolean gameover;
     public boolean mustBlink;
     public boolean sizeChanged = false;
+    public Point newCasePoint;
 
     public Jeu(int size) {
         tabCases = new Case[size][size];
@@ -202,18 +203,12 @@ public class Jeu extends Observable {
                 if (tabCases[i][j] == null) {
                     nulls[nbNulls] = new Point(i, j);
                     nbNulls++;
-
                 }
             }
         }
-        int nbRnd = 1;
-        int rIndex;
-        Point pt;
-        for (int k = 0; k < nbRnd; k++) {
-            rIndex = rnd.nextInt(nbNulls);
-            pt = nulls[rIndex];
-            ajouterCase(new Case((rnd.nextInt(1) + 1) * 2, this), pt.x, pt.y);
-        }
+        Point pt = nulls[rnd.nextInt(nbNulls)];
+        ajouterCase(new Case((rnd.nextInt(1) + 1) * 2, this), pt.x, pt.y);
+        newCasePoint = pt;
     }
 
     // Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible
@@ -384,7 +379,7 @@ public class Jeu extends Observable {
 
             gameover = false;
             testFinPartie();
-            
+
             System.out.println("Restoré!");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
