@@ -7,8 +7,6 @@ import javax.swing.*;
 import modele.Direction;
 import modele.Jeu;
 
-import tool.Tool;
-
 public class SwingMenu extends JMenuBar {
 
     private Jeu jeu;
@@ -31,7 +29,7 @@ public class SwingMenu extends JMenuBar {
     };
     private java.awt.Color bg_color = new java.awt.Color(77,63,40);
     private java.awt.Color blink_color = new java.awt.Color(87,74,62);
-    private JLabel saveIndicator = new JLabel("         ");
+    private JLabel saveIndicator = new JLabel("");
 
     public SwingMenu(Jeu _jeu) {
         jeu = _jeu;
@@ -95,6 +93,9 @@ public class SwingMenu extends JMenuBar {
         scoresPane.add(scoreL);
         scoresPane.setOpaque(false);
 
+        saveIndicator.setMinimumSize(new Dimension(43,17));
+        saveIndicator.setPreferredSize(new Dimension(43,17));
+        saveIndicator.setMaximumSize(new Dimension(43,17));
         saveIndicator.setForeground(Color.WHITE);
         saveIndicator.setHorizontalAlignment(SwingConstants.RIGHT);
         
@@ -157,15 +158,15 @@ public class SwingMenu extends JMenuBar {
         saveIndicator.setText("(sauvé)");
         new Thread(() -> {
             try {
-                for(int k = 1; k<=50; k++){
-                    Thread.sleep(20);
-                    saveIndicator.setForeground(tool.Tool.fadeTo(Color.WHITE, bg_color, k*20));
+                for(int k = 1; k<=20; k++){
+                    Thread.sleep(50);
+                    saveIndicator.setForeground(tool.Tool.fadeTo(Color.WHITE, bg_color, k*50));
                 }
             }
             catch (Exception e){
                 System.err.println(e);
             }
-            saveIndicator.setText("         ");
+            saveIndicator.setText("");
 
         }).start();
     }
