@@ -16,6 +16,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Ajouter des keybinds pour (presque) tout
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
 - Deux Joueurs
+- Commencer une partie à vide
 
 ###### Barre de menus
 - Page d'aide avec les keybindings
@@ -34,6 +35,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Deux Joueurs
 - Randomizer le début
 - Exec pool
+- Ajouter la possibilité de créer un nouveau Jeu
 
 - Clean up code
 

@@ -370,8 +370,8 @@ public class Jeu extends Observable {
                     }
                 }
             }
-            saveScanner.close();
             historique.ajouterHist(hm, score);
+            saveScanner.close();
 
             gameover = false;
             testFinPartie();
@@ -435,5 +435,20 @@ public class Jeu extends Observable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void resetJeu(int size){
+        tabCases = new Case[size][size];
+        hm = new HashMap<Case, Point>();
+        gameover = false;
+        ajouterRnd();
+        ajouterRnd();
+        historique = new Historique(10); // On garde les 10 coups précédents en mémoire
+        historique.ajouterHist(hm, score);
+        score = 0;
+        mustBlink = false;
+
+        setChanged();
+        notifyObservers();
     }
 }
