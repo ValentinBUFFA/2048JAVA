@@ -7,7 +7,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [N] Resize la taille de la police pour eviter l'overflow sur l'affichage graphique
 - [N] Passer la police en vectoriel?
 - Affichage lors de gameover
-- [X] Affichage au lancement (reprendre partie, choisir taille, etc)
+- [N] Affichage au lancement (reprendre partie, choisir taille, etc)
 - [V] Bouton/keybind pour annuler un coup
 - [V] Bouton/keybind pour sauvegarder la partie
 - [V] Afficher le highscore, et le temps de la partie actuelle
