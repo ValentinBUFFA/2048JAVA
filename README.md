@@ -15,6 +15,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
 - Ajouter des keybinds pour (presque) tout
 - Deux Joueurs
+- [V] Blink de la barre de menu
 
 ###### Barre de menus
 - Page d'aide avec les keybindings
@@ -32,6 +33,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Deux Joueurs
 - Randomizer le début
 - Exec pool
+- Declencher blink quand il faut (historique limites, blink bitch)
 
 
 ### KNOWN BUGS

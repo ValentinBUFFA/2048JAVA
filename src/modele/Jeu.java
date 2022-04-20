@@ -21,6 +21,7 @@ public class Jeu extends Observable {
     public boolean gameover;
     private Historique historique;
     private int score, highscore;
+    public boolean mustBlink;
 
 
     public Jeu(int size) throws IOException{
@@ -33,6 +34,7 @@ public class Jeu extends Observable {
         historique.ajouterHist(hm, score);
         score = 0;
         highscore = loadHighScore();
+        mustBlink = false;
 
     }
 
@@ -42,6 +44,8 @@ public class Jeu extends Observable {
         construireGrille(hm);
         score = jeu.score;
         gameover = jeu.gameover;
+        mustBlink = false;
+
     }
 
     public void affichageDebug(){
@@ -150,12 +154,12 @@ public class Jeu extends Observable {
                 } else {
                     
                     System.out.println("blink bitch");
+                    mustBlink = true;
                     affichageDebug();
                 }
                 System.out.println();
                 setChanged();
                 notifyObservers();
-                System.out.println("a");
                 testFinPartie();
             }
 
@@ -334,9 +338,11 @@ public class Jeu extends Observable {
             }
             setChanged();
             notifyObservers();
-            affichageDebug();
             return true;
         }
+        mustBlink = true;
+        setChanged();
+        notifyObservers();
         return false;
     }
 
@@ -353,6 +359,9 @@ public class Jeu extends Observable {
             notifyObservers();
             return true;
         }
+        mustBlink = true;
+        setChanged();
+        notifyObservers();
         return false;
     }
 
