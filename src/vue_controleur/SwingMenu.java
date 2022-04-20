@@ -11,6 +11,22 @@ public class SwingMenu extends JMenuBar {
 
     private Jeu jeu;
     private JLabel hsL, scoreL;
+    JTextField searchfField;
+    private JMenuItem[][] items = new JMenuItem[][] {
+        new JMenuItem[] {   // Items dans le menu Partie
+            new JMenuItem("Sauver", 'S'),
+            new JMenuItem("Restaurer", 'E'),
+            new JMenuItem("Nouvelle Partie", 'N')
+        }, 
+        new JMenuItem[] {    // Items adns le menu Action
+            new JMenuItem("Annuler", 'A'),
+            new JMenuItem("Refaire", 'R'),
+            new JMenuItem("Haut", 'H'),
+            new JMenuItem("Bas", 'B'),
+            new JMenuItem("Gauche", 'G'),
+            new JMenuItem("Droite", 'D')
+        }
+    };
     private java.awt.Color bg_color = new java.awt.Color(77,63,40);
     private java.awt.Color blink_color = new java.awt.Color(87,74,62);
     
@@ -39,49 +55,47 @@ public class SwingMenu extends JMenuBar {
                     case "Bas": jeu.action(Direction.bas); break;
                     case "Gauche": jeu.action(Direction.gauche); break;
                     case "Droite": jeu.action(Direction.droite); break;
+
+                    case "Rechercher": 
+                        System.out.println(searchfField.getText());
+                    
+                        if(search(searchfField.getText())) {
+                            System.out.println("BITEE");
+                        }
+                        break;
+
                 }
 
               }
         };
         JMenu partieMenu = new JMenu("Partie");
         partieMenu.setForeground(java.awt.Color.white);
-        JMenuItem item = new JMenuItem("Sauver", 'S');
-        item.addActionListener(afficherMenu);
-        partieMenu.add(item);
-        item = new JMenuItem("Restaurer", 'E');
-        item.addActionListener(afficherMenu);
-        partieMenu.add(item);
-        partieMenu.insertSeparator(2);
-        item = new JMenuItem("Nouvelle Partie", 'N');
-        item.addActionListener(afficherMenu);
-        partieMenu.add(item);
-
         JMenu actionMenu = new JMenu("Actions");
         actionMenu.setForeground(Color.WHITE);
-        item = new JMenuItem("Annuler", 'A');
-        item.addActionListener(afficherMenu);
-        actionMenu.add(item);
-        item = new JMenuItem("Refaire", 'R');
-        item.addActionListener(afficherMenu);
-        actionMenu.add(item);
+
+        for (int i = 0; i < items.length; i++) {
+            for (int j = 0; j < items[i].length; j++) {
+                items[i][j].addActionListener(afficherMenu);
+                switch (i) {
+                    case 0:
+                        partieMenu.add(items[i][j]);
+                        break;
+                    case 1:
+                        actionMenu.add(items[i][j]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        partieMenu.insertSeparator(2);
         actionMenu.insertSeparator(2);
-        item = new JMenuItem("Haut", 'H');
-        item.addActionListener(afficherMenu);
-        actionMenu.add(item);
-        item = new JMenuItem("Bas", 'B');
-        item.addActionListener(afficherMenu);
-        actionMenu.add(item);
-        item = new JMenuItem("Gauche", 'G');
-        item.addActionListener(afficherMenu);
-        actionMenu.add(item);
-        item = new JMenuItem("Droite", 'D');
-        item.addActionListener(afficherMenu);
-        actionMenu.add(item);
-        partieMenu.setOpaque(true);
 
         JMenu aideMenu = new JMenu("Aide");
         aideMenu.setForeground(Color.white);
-        aideMenu.add(new JTextField());
+        searchfField = new JTextField();
+        aideMenu.add(searchfField);
         JButton rechercher = new JButton("Rechercher");
         aideMenu.add(rechercher);
         rechercher.addActionListener(afficherMenu);
@@ -127,5 +141,18 @@ public class SwingMenu extends JMenuBar {
                 System.err.println(e);
             }
         }).start();
+    }
+
+    public boolean search(String entry) {
+        String s;
+        for (int i = 0; i < items.length; i++) {
+            for (int j = 0; j < items[i].length; j++) {
+                if(items[i][j].getActionCommand().equals(entry))  {
+                    return true;
+                }
+                
+            }
+        }
+        return false;
     }
 }
