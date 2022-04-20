@@ -17,8 +17,7 @@ public class SwingMenu extends JMenuBar {
     public SwingMenu(Jeu _jeu) {
         jeu = _jeu;
         
-       
-        super.setBackground(bg_color);
+        this.setBackground(bg_color);
         this.setBorder(BorderFactory.createEmptyBorder());
 
         ActionListener afficherMenu = new ActionListener(){
@@ -126,5 +125,12 @@ public class SwingMenu extends JMenuBar {
                 System.err.println(e);
             }
         }).start();
+    }
+
+    public void nouvellePartiePopUp(){
+        JFrame popup = new JFrame();
+        int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
+
+        System.out.println(new_size); 
     }
 }
