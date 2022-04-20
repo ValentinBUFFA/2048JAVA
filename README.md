@@ -41,4 +41,4 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [FIXED] gestion du score dans l'historique
 - [~FIXED|REQUIRES TESTING] revenir en arriere quand la partie est perdue produit des comportements FORTEMENT indésirables
 - [FIXED] blink bitch se déclenche à des moments inopportuns (bas, gauche, gauche)
-- Bug à la restauration d'une partie après un game over
+- [FIXED] Bug à la restauration d'une partie après un game over

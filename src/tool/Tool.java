@@ -41,7 +41,7 @@ public class Tool {
         return hm_copy;
     }
 
-    //Copie profonde en recréant chaque Case et POint de la HashMap
+    //Copie profonde en recréant chaque Case et Point de la HashMap
     public static HashMap<Case, Point> deepCopyHashMap(HashMap<Case, Point> hm){
         HashMap<Case, Point> hm_copy = new HashMap<Case, Point>();
         hm.forEach((c, pt)->{
@@ -58,6 +58,5 @@ public class Tool {
             hm_copy.put(new Case(c.getValeur(), jeu), new Point(pt.x,pt.y));
         });
         return hm_copy;
-        
     }
 }
