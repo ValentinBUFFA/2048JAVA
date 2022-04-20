@@ -79,17 +79,17 @@ public class SwingMenu extends JMenuBar {
         JPanel scoresPane = new JPanel();
 
         JLabel hsText = new JLabel("HIGHSCORE:");
-        hsText.setForeground(Color.black);
+        hsText.setForeground(Color.WHITE);
         scoresPane.add(hsText);
         hsL = new JLabel(Integer.toString(jeu.getHighScore()));
-        hsL.setForeground(Color.black);
+        hsL.setForeground(Color.WHITE);
         scoresPane.add(hsL);
 
         JLabel scoreText = new JLabel("SCORE:");
-        scoreText.setForeground(Color.black);
+        scoreText.setForeground(Color.white);
         scoresPane.add(scoreText);
         scoreL = new JLabel(Integer.toString(jeu.getScore()));
-        scoreL.setForeground(Color.black);
+        scoreL.setForeground(Color.white);
         scoresPane.add(scoreL);
         scoresPane.setOpaque(false);
 
