@@ -208,7 +208,7 @@ public class Jeu extends Observable {
         }
         Point pt = nulls[rnd.nextInt(nbNulls)];
         ajouterCase(new Case((rnd.nextInt(1) + 1) * 2, this), pt.x, pt.y);
-        newCasePoint = pt;
+        newCasePoint = (Point) pt.clone();
     }
 
     // Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible

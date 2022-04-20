@@ -174,7 +174,7 @@ public class SwingMenu extends JMenuBar {
     public void nouvellePartiePopUp(){
         JFrame popup = new JFrame();
         try {
-            int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
+            int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille", jeu.getSize()));
             if (new_size > 0){
                 jeu.resetJeu(new_size);
             }
@@ -187,14 +187,14 @@ public class SwingMenu extends JMenuBar {
     public boolean searchResultPopUp(boolean b) {
         JFrame jFrame = new JFrame();
         if (b) {
-            int result = JOptionPane.showConfirmDialog(jFrame, "Commande existante, voulez-vous l'executer ? Vous êtes sûr ? Réfléchissez bien, on a tout notre temps, ne vous inquiétez pas ^^ ", "Aide", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(jFrame, "Commande existante, voulez-vous l'executer ? ", "Aide", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             
             if(result == JOptionPane.YES_OPTION) {
                 return true;
             } 
             
         } else {
-            JOptionPane.showMessageDialog(jFrame, "Commande inexistante ! salope putputpute sssalope", "Aide", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(jFrame, "Commande inexistante !", "Aide", JOptionPane.INFORMATION_MESSAGE);
         }
         return false;
         
