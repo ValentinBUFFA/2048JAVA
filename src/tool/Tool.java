@@ -12,7 +12,7 @@ public class Tool {
         return (int)(Math.log(N)/Math.log(2));
     }
 
-    //! Copie profonde nécessaire?
+    //Copie simple, en gardant les adresses
     public static Case[][] copy2Darray(Case[][] tab){
         Case[][] newTab = new Case[tab.length][];
         for(int i = 0; i<tab.length; i++){
@@ -21,6 +21,7 @@ public class Tool {
         return newTab;
     }
 
+    //! Pas utilisé
     public static Case[][] deepCopy2Darray(Case[][] tab){
         Case[][] newTab = new Case[tab.length][tab.length];
         for(int i = 0; i<tab.length; i++){
@@ -32,12 +33,10 @@ public class Tool {
     }    
 
     //Copie simple 
+    //! Pas utilisé
     public static HashMap<Case, Point> copyHashMap(HashMap<Case, Point> hm){
         HashMap<Case, Point> hm_copy = new HashMap<Case, Point>();
         hm_copy.putAll(hm);
-        /*hm.forEach((c, pt)->{
-            hm_copy.put(c, new Point(pt.x,pt.y));
-        });*/
         return hm_copy;
     }
 

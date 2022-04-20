@@ -9,16 +9,11 @@ import tool.Tool;//Pour log2
 import javax.swing.*;
 import javax.swing.border.Border;
 
-
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.TimeUnit;
 @SuppressWarnings( "deprecation" )
 
 public class Swing2048 extends JFrame implements Observer {
@@ -41,15 +36,15 @@ public class Swing2048 extends JFrame implements Observer {
         new java.awt.Color(237,194,46),//2048
     };
 
-    private String[] gm = new String[] {
-        new String("G"),
-        new String("A"),
-        new String("M"),
-        new String("E"),
-        new String("O"),
-        new String("V"),
-        new String("E"),
-        new String("R"),
+    private Character[] gm = new Character[] {
+        new Character('G'),
+        new Character('A'),
+        new Character('M'),
+        new Character('E'),
+        new Character('O'),
+        new Character('V'),
+        new Character('E'),
+        new Character('R'),
 
     };
     private java.awt.Color bg_color = new java.awt.Color(87,74,62);
@@ -96,7 +91,6 @@ public class Swing2048 extends JFrame implements Observer {
      * Correspond à la fonctionnalité de Vue : affiche les données du modèle
      */
     private void rafraichir()  {
-
         SwingUtilities.invokeLater(new Runnable() { // demande au processus graphique de réaliser le traitement
             @Override
             public void run() {
@@ -114,42 +108,35 @@ public class Swing2048 extends JFrame implements Observer {
                                 tabC[i][j].setText(c.getValeur() + "");
                                 tabC[i][j].setBackground(tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)]);
                             }
-    
-    
                         }
                     }
-                } else {
-                    System.out.println("oeoeoe ta perdu sal con");
-                    
+                } else {                    
                     for (int i = 0; i < jeu.getSize(); i++) {
                         for (int j = 0; j < jeu.getSize(); j++) {
-                            Case c = jeu.getCase(i, j);
-    
-                            switch (i) {
-                                case 1:
-                                    tabC[i][j].setText(gm[j] + "");
-                                    tabC[i][j].setBackground(tile_bg_colors[0]);
-                                    break;
-                                case 2:
-                                    tabC[i][j].setText(gm[j + jeu.getSize()] + "");
-                                    tabC[i][j].setBackground(tile_bg_colors[0]);
-                                    break;
-                                default:
-                                    tabC[i][j].setText("");
-                                    tabC[i][j].setBackground(tile_bg_colors[0]);
-                                    break;
+                            if (j>=4){
+                                tabC[i][j].setText("");
+                                tabC[i][j].setBackground(tile_bg_colors[0]);
+                            }else{
+                                switch (i) {
+                                    case 1:
+                                        tabC[i][j].setText(gm[j] + "");
+                                        tabC[i][j].setBackground(tile_bg_colors[2]);
+                                        break;
+                                    case 2:
+                                        tabC[i][j].setText(gm[j + 4] + "");
+                                        tabC[i][j].setBackground(tile_bg_colors[2]);
+                                        break;
+                                    default:
+                                        tabC[i][j].setText("");
+                                        tabC[i][j].setBackground(tile_bg_colors[0]);
+                                        break;
+                                }
                             }
-    
-    
                         }
                     }
                 }
-                
-            
             }
         });
-
-
     }
 
 
@@ -165,11 +152,11 @@ public class Swing2048 extends JFrame implements Observer {
                     case KeyEvent.VK_RIGHT : jeu.action(Direction.droite); break;
                     case KeyEvent.VK_DOWN : jeu.action(Direction.bas); break;
                     case KeyEvent.VK_UP : jeu.action(Direction.haut); break;
+
                     case KeyEvent.VK_BACK_SPACE: jeu.undoMove(); break;
                     case KeyEvent.VK_ENTER: jeu.redoMove(); break;
                     case KeyEvent.VK_S: jeu.saveToFile(); break;
                     case KeyEvent.VK_R: jeu.loadFromFile(); break;
-
                 }
             }
         });

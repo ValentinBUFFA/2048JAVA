@@ -16,7 +16,7 @@ import java.io.FileNotFoundException;
 public class Jeu extends Observable {
 
     private Case[][] tabCases;
-    private static Random rnd = new Random(4);
+    private static Random rnd = new Random();
     public HashMap<Case, Point> hm;
     public boolean gameover;
     private Historique historique;
@@ -109,7 +109,7 @@ public class Jeu extends Observable {
 
     }
 
-    public int void_action(Direction d){       // Retourne > 0 s'il y a eu changement, 0 sinon.
+    public int void_action(Direction d){    // Retourne > 0 s'il y a eu changement, 0 sinon.
         int ii,jj;
         int hasChanged = 0;
         for(int i = 0; i<tabCases.length; i++){
@@ -144,14 +144,10 @@ public class Jeu extends Observable {
                 if(void_action(d) > 0){
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
-                    affichageDebug();
                 } else {
-                    
-                    System.out.println("blink bitch");
                     mustBlink = true;
-                    affichageDebug();
                 }
-                System.out.println();
+                //affichageDebug();
                 testFinPartie();
                 setChanged();
                 notifyObservers();
@@ -160,6 +156,7 @@ public class Jeu extends Observable {
         }.start();
     }
 
+    //renvoie la premiere case non null dans la direction d en partant de (i,j)
     public Case getVoisinAv(int i, int j, Direction d){
         switch (d) {
             case gauche:
@@ -197,8 +194,7 @@ public class Jeu extends Observable {
         }
     }
 
-    //Ajoute 1 ou 2 cases de valeurs aléatoires (2 ou 4)
-    // attention s'il ne reste pas beaucoup de place dans la grille => deja géré dans action()
+    //Ajoute 1 cases de valeurs aléatoires (2 ou 4)
     //On compte le nombre de "cases" null et on garde leurs coordonnées en mémoire
     public void ajouterRnd(){
         int nbNulls = 0;
@@ -212,7 +208,6 @@ public class Jeu extends Observable {
                 }
             }
         }
-        //int nbRnd = rnd.nextInt(1)+1;
         int nbRnd = 1;
         int rIndex;
         Point pt;
@@ -222,47 +217,6 @@ public class Jeu extends Observable {
             ajouterCase(new Case((rnd.nextInt(1)+1)*2, this), pt.x, pt.y);
         }
     }
-
-    /*public boolean testFinPartie1(){
-        if(hm.size() < tabCases.length*tabCases.length){
-            return false;
-        }
-
-        boolean hasChanged = false;
-        //on copie l'etat actuel de la grille de jeu et de la hashmap pour potentiellement le restaurer après
-        Case[][] tab_copy = tool.Tool.copy2Darray(this.tabCases);
-        HashMap<Case, Point> hm_copy = tool.Tool.copyHashMap(this.hm);
-        //ensuite on teste successivement chaque deplacement, en reinitialisant le jeu à son etat initial entre chaque
-        for(int k = 0; k<4; k++){
-            switch (k) {
-                case 0:
-                    void_action(Direction.gauche);
-                    break;
-                case 1:
-                    void_action(Direction.droite);
-                    break;
-                case 2:
-                    void_action(Direction.haut);
-                    break;
-                case 3:
-                    void_action(Direction.bas);
-                    break;
-                default:
-                    break;
-            }
-            if (hm.size()<hm_copy.size()){//si il y a eu un mouvement effectif alors c'est forcement une fusion (car grille pleine)
-                hasChanged = true;
-            }
-            //Puis on remet l'etat initial avant le prochain test
-            this.tabCases = tool.Tool.copy2Darray(tab_copy);
-            this.hm = tool.Tool.copyHashMap(hm_copy);
-        }
-        if (!hasChanged){
-            System.out.println("GAME OVER");
-            gameover = true;
-        }
-        return hasChanged;
-    }*/
 
     //Renvoie false si la partie est finie, ie plus aucun mouvement n'est possible
     public boolean testFinPartie(){
@@ -385,12 +339,10 @@ public class Jeu extends Observable {
             }
             printWriter.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    //TODO charger depuis sauvegarde
     public boolean loadFromFile(){
         try {
             File saveFile = new File("save.csv");
@@ -419,11 +371,11 @@ public class Jeu extends Observable {
                 }
             }
             saveScanner.close();
+            historique.ajouterHist(hm, score);
 
             gameover = false;
             testFinPartie();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return false;
         }
@@ -468,7 +420,6 @@ public class Jeu extends Observable {
             return hs;
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return 0;
         }
@@ -482,7 +433,6 @@ public class Jeu extends Observable {
             hsWriter.close();
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

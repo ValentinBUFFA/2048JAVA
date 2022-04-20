@@ -12,9 +12,9 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Afficher le highscore, et le temps de la partie actuelle
 - [V] Pour les boutons, utiliser menus de navigation?
 - [V] Blink de la barre de menu
-- Affichage lors de gameover
+- [V] Affichage lors de gameover
+- [V] Ajouter des keybinds pour (presque) tout
 - Ajouter des animations au déplacement des cases (avec possiblité de les desactiver)
-- Ajouter des keybinds pour (presque) tout
 - Deux Joueurs
 
 ###### Barre de menus

@@ -2,8 +2,6 @@ package modele;
 
 import java.util.HashMap;
 import java.awt.Point;
-import java.lang.Math;
-import tool.Tool;
 
 public class Historique {
     private HashMap<Case, Point>[] hm_hist;
