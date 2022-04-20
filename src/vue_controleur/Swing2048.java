@@ -133,7 +133,7 @@ public class Swing2048 extends JFrame implements Observer {
 
                     case KeyEvent.VK_BACK_SPACE: jeu.undoMove(); break;
                     case KeyEvent.VK_ENTER: jeu.redoMove(); break;
-                    case KeyEvent.VK_S: jeu.saveToFile(); break;
+                    case KeyEvent.VK_S: jeu.saveToFile(); menuBar.afficherSave(); break;
                     case KeyEvent.VK_R: jeu.loadFromFile(); break;
                     case KeyEvent.VK_N: menuBar.nouvellePartiePopUp(); break;
                     

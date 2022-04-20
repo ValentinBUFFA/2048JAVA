@@ -2,6 +2,7 @@ package tool;
 import java.lang.Math;
 import java.awt.Point;
 import java.util.HashMap;
+import java.awt.Color;
 
 import modele.Case;
 import modele.Jeu;
@@ -57,5 +58,12 @@ public class Tool {
             hm_copy.put(new Case(c.getValeur(), jeu), new Point(pt.x,pt.y));
         });
         return hm_copy;
+    }
+
+    // pr between 0 and 1000
+    public static Color fadeTo(Color origin, Color dest, int pr){
+        int or = origin.getRed(), og = origin.getGreen(), ob = origin.getBlue();
+        int dr = dest.getRed(), dg = dest.getGreen(), db = dest.getBlue();
+        return new Color((int)((or*(1000-pr)+dr*pr)/1000), (int)((og*(1000-pr)+dg*pr)/1000), (int)((ob*(1000-pr)+db*pr)/1000));
     }
 }

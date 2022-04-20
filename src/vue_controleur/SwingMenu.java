@@ -7,6 +7,8 @@ import javax.swing.*;
 import modele.Direction;
 import modele.Jeu;
 
+import tool.Tool;
+
 public class SwingMenu extends JMenuBar {
 
     private Jeu jeu;
@@ -29,7 +31,8 @@ public class SwingMenu extends JMenuBar {
     };
     private java.awt.Color bg_color = new java.awt.Color(77,63,40);
     private java.awt.Color blink_color = new java.awt.Color(87,74,62);
-    
+    private JLabel saveIndicator = new JLabel("         ");
+
     public SwingMenu(Jeu _jeu) {
         jeu = _jeu;
         
@@ -102,22 +105,30 @@ public class SwingMenu extends JMenuBar {
         JLabel hsText = new JLabel("HIGHSCORE:");
         hsText.setForeground(Color.WHITE);
         scoresPane.add(hsText);
+
         hsL = new JLabel(Integer.toString(jeu.getHighScore()));
         hsL.setForeground(Color.WHITE);
         scoresPane.add(hsL);
 
         JLabel scoreText = new JLabel("SCORE:");
-        scoreText.setForeground(Color.white);
+        scoreText.setForeground(Color.WHITE);
         scoresPane.add(scoreText);
+
         scoreL = new JLabel(Integer.toString(jeu.getScore()));
-        scoreL.setForeground(Color.white);
+        scoreL.setForeground(Color.WHITE);
         scoresPane.add(scoreL);
         scoresPane.setOpaque(false);
 
+        saveIndicator.setForeground(Color.WHITE);
+        saveIndicator.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        
         add(partieMenu);
         add(actionMenu);
         add(aideMenu);
         add(scoresPane);
+
+        add(saveIndicator);
         
     }
 
@@ -140,11 +151,28 @@ public class SwingMenu extends JMenuBar {
         }).start();
     }
 
+    public void afficherSave(){
+        saveIndicator.setText("(sauvé)");
+        new Thread(() -> {
+            try {
+                for(int k = 1; k<=50; k++){
+                    Thread.sleep(20);
+                    saveIndicator.setForeground(tool.Tool.fadeTo(Color.WHITE, bg_color, k*20));
+                }
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+            saveIndicator.setText("         ");
+
+        }).start();
+    }
+
     public void nouvellePartiePopUp(){
         JFrame popup = new JFrame();
         try {
             int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
-            if (new_size>0){
+            if (new_size > 0){
                 jeu.resetJeu(new_size);
             }
         } catch (Exception e) {
