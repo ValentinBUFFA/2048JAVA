@@ -144,9 +144,15 @@ public class SwingMenu extends JMenuBar {
 
     public void nouvellePartiePopUp(){
         JFrame popup = new JFrame();
-        int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
+        try {
+            int new_size = Integer.parseInt(JOptionPane.showInputDialog(popup, "Taille d'un côté:", jeu.getSize()));
+            if (new_size>0){
+                jeu.resetJeu(new_size);
+            }
+        } catch (Exception e) {
+            return;
+        }
 
-        System.out.println(new_size); 
     }
     
     public boolean searchResultPopUp(boolean b) {
