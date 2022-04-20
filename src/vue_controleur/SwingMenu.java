@@ -1,7 +1,6 @@
 package vue_controleur;
 import java.awt.Color;
 import java.awt.event.*;
-import java.io.IOException;
 
 import javax.swing.*;
 
