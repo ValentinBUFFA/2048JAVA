@@ -1,7 +1,6 @@
 package vue_controleur;
 import java.awt.Color;
 import java.awt.event.*;
-import java.io.IOException;
 
 import javax.swing.*;
 
@@ -23,11 +22,7 @@ public class SwingMenu extends JMenuBar {
             public void actionPerformed(ActionEvent event) {
                 System.out.println(event.getActionCommand());
                 switch (event.getActionCommand()) {
-                    case "Sauver": try {
-                            jeu.saveToFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } break;
+                    case "Sauver": jeu.saveToFile(); break;
                     case "Restaurer": 
                         if(!jeu.loadFromFile()) {
                             System.out.println("Erreur : fichier de sauvergarde introuvable");

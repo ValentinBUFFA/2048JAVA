@@ -24,7 +24,7 @@ public class Jeu extends Observable {
     public boolean mustBlink;
 
 
-    public Jeu(int size) throws IOException{
+    public Jeu(int size) {
         tabCases = new Case[size][size];
         hm = new HashMap<Case, Point>();
         gameover = false;
@@ -368,21 +368,26 @@ public class Jeu extends Observable {
     }
 
     //Sauvegarde dans un fichier externe (syntaxe csv)
-    public void saveToFile() throws IOException{
-        PrintWriter printWriter = new PrintWriter(new FileWriter("save.csv"));
-
-        //grid to csv
-        //score, taille_grille
-        printWriter.printf("%d,%d",score,tabCases.length);
-        printWriter.println();
-        for(int i = 0; i<tabCases.length; i++){
-            for(int j = 0; j<tabCases.length-1; j++){
-                printWriter.printf("%d,",getValeur(i,j));
-            }
-            printWriter.print(getValeur(i,tabCases.length-1));
+    public void saveToFile() {
+        PrintWriter printWriter;
+        try {
+            printWriter = new PrintWriter(new FileWriter("save.csv"));
+            //grid to csv
+            //score, taille_grille
+            printWriter.printf("%d,%d",score,tabCases.length);
             printWriter.println();
+            for(int i = 0; i<tabCases.length; i++){
+                for(int j = 0; j<tabCases.length-1; j++){
+                    printWriter.printf("%d,",getValeur(i,j));
+                }
+                printWriter.print(getValeur(i,tabCases.length-1));
+                printWriter.println();
+            }
+            printWriter.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        printWriter.close();
     }
 
     //TODO charger depuis sauvegarde
@@ -422,7 +427,7 @@ public class Jeu extends Observable {
             e.printStackTrace();
             return false;
         }
-        
+
         setChanged();
         notifyObservers();
         return true;
@@ -445,20 +450,28 @@ public class Jeu extends Observable {
         return highscore;
     }
 
-    public int loadHighScore() throws IOException{
+    public int loadHighScore(){
         File hsFile = new File("highscore.csv");
         if (!hsFile.exists()){
             return 0;
         }
-        Scanner hScanner = new Scanner(hsFile);
-        hScanner.reset();
-        if(!hScanner.hasNextInt()) {
+        Scanner hScanner;
+        try {
+            hScanner = new Scanner(hsFile);
+            hScanner.reset();
+            if(!hScanner.hasNextInt()) {
+                hScanner.close();
+                return 0;
+            }
+            int hs = hScanner.nextInt();
             hScanner.close();
+            return hs;
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
             return 0;
         }
-        int hs = hScanner.nextInt();
-        hScanner.close();
-        return hs;
     }
 
     public void updateHighScore() {
@@ -467,10 +480,10 @@ public class Jeu extends Observable {
             hsWriter = new PrintWriter(new FileWriter("highscore.csv"));
             hsWriter.print(highscore);
             hsWriter.close();
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 }
-
