@@ -114,11 +114,15 @@ public class Swing2048 extends JFrame implements Observer {
 
         } else {
             Color col = tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)];
-            tabC[i][j].setText(c.getValeur() + "");
             if (jeu.newCasePoint != null && i==jeu.newCasePoint.x && j==jeu.newCasePoint.y){
+                tabC[i][j].setForeground(tile_bg_colors[0]);
+                tabC[i][j].setBackground(tile_bg_colors[0]);
+                tabC[i][j].setText(c.getValeur() + "");
+
                 apparaitreCase(i, j, col);
             }else{
                 tabC[i][j].setForeground(Color.WHITE);
+                tabC[i][j].setText(c.getValeur() + "");
                 tabC[i][j].setBackground(col);
             }
         }
