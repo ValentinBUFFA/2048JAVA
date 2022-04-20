@@ -31,6 +31,7 @@ public class SwingMenu extends JMenuBar {
                             System.out.println("Erreur : fichier de sauvergarde introuvable");
                         }
                         break;
+                    case "Nouvelle Partie": jeu.resetJeu();
                     case "Annuler": jeu.undoMove(); break;
                     case "Refaire": jeu.redoMove(); break;
 
@@ -43,15 +44,17 @@ public class SwingMenu extends JMenuBar {
               }
         };
         JMenu partieMenu = new JMenu("Partie");
-        partieMenu.setForeground(java.awt.Color.black);
+        partieMenu.setForeground(java.awt.Color.white);
         JMenuItem item = new JMenuItem("Sauver", 'S');
         item.addActionListener(afficherMenu);
         partieMenu.add(item);
         item = new JMenuItem("Restaurer", 'E');
         item.addActionListener(afficherMenu);
         partieMenu.add(item);
-        partieMenu.setOpaque(true);
-
+        partieMenu.insertSeparator(2);
+        item = new JMenuItem("Nouvelle Partie", 'N');
+        item.addActionListener(afficherMenu);
+        partieMenu.add(item);
 
         JMenu actionMenu = new JMenu("Actions");
         actionMenu.setForeground(Color.WHITE);
@@ -76,6 +79,13 @@ public class SwingMenu extends JMenuBar {
         actionMenu.add(item);
         partieMenu.setOpaque(true);
 
+        JMenu aideMenu = new JMenu("Aide");
+        aideMenu.setForeground(Color.white);
+        aideMenu.add(new JTextField());
+        JButton rechercher = new JButton("Rechercher");
+        aideMenu.add(rechercher);
+        rechercher.addActionListener(afficherMenu);
+
         JPanel scoresPane = new JPanel();
 
         JLabel hsText = new JLabel("HIGHSCORE:");
@@ -95,6 +105,7 @@ public class SwingMenu extends JMenuBar {
 
         add(partieMenu);
         add(actionMenu);
+        add(aideMenu);
         add(scoresPane);
         
     }
