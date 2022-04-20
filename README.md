@@ -33,7 +33,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - Deux Joueurs
 - Randomizer le début
 - Exec pool
-- Declencher blink quand il faut (historique limites, blink bitch)
+- [V] Declencher blink quand il faut (historique limites, blink bitch)
 
 
 ### KNOWN BUGS
