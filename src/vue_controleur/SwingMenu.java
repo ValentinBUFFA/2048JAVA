@@ -24,7 +24,11 @@ public class SwingMenu extends JMenuBar {
                 System.out.println(event.getActionCommand());
                 switch (event.getActionCommand()) {
                     case "Sauver": jeu.saveToFile(); break;
-                    case "Restaurer": jeu.loadFromFile(); break;
+                    case "Restaurer": 
+                        if(!jeu.loadFromFile()) {
+                            System.out.println("Erreur : fichier de sauvergarde introuvable");
+                        }
+                        break;
                     case "Annuler": jeu.undoMove(); break;
                     case "Refaire": jeu.redoMove(); break;
 
