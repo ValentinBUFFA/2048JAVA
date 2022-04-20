@@ -43,7 +43,7 @@ public class SwingMenu extends JMenuBar {
               }
         };
         JMenu partieMenu = new JMenu("Partie");
-        partieMenu.setForeground(java.awt.Color.white);
+        partieMenu.setForeground(java.awt.Color.black);
         JMenuItem item = new JMenuItem("Sauver", 'S');
         item.addActionListener(afficherMenu);
         partieMenu.add(item);
@@ -86,10 +86,10 @@ public class SwingMenu extends JMenuBar {
         scoresPane.add(hsL);
 
         JLabel scoreText = new JLabel("SCORE:");
-        scoreText.setForeground(Color.WHITE);
+        scoreText.setForeground(Color.white);
         scoresPane.add(scoreText);
         scoreL = new JLabel(Integer.toString(jeu.getScore()));
-        scoreL.setForeground(Color.WHITE);
+        scoreL.setForeground(Color.white);
         scoresPane.add(scoreL);
         scoresPane.setOpaque(false);
 
