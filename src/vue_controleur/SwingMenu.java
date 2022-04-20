@@ -47,7 +47,7 @@ public class SwingMenu extends JMenuBar {
                             System.out.println("Erreur : fichier de sauvergarde introuvable");
                         }
                         break;
-                    case "Nouvelle Partie": jeu.resetJeu();
+                    case "Nouvelle Partie": jeu.resetJeu(); break;
                     case "Annuler": jeu.undoMove(); break;
                     case "Refaire": jeu.redoMove(); break;
 
@@ -57,10 +57,8 @@ public class SwingMenu extends JMenuBar {
                     case "Droite": jeu.action(Direction.droite); break;
 
                     case "Rechercher": 
-                        System.out.println(searchfField.getText());
-                    
                         if(search(searchfField.getText())) {
-                            System.out.println("BITEE");
+                            
                         }
                         break;
 

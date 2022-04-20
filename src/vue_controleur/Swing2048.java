@@ -35,7 +35,6 @@ public class Swing2048 extends JFrame implements Observer {
         new java.awt.Color(237,197,63),//1024
         new java.awt.Color(237,194,46),//2048
     };
-
     private Character[] gm = new Character[] {
         new Character('G'),
         new Character('A'),
@@ -49,7 +48,7 @@ public class Swing2048 extends JFrame implements Observer {
     };
     private java.awt.Color bg_color = new java.awt.Color(87,74,62);
     private SwingMenu menuBar;
-
+    private Font font = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 
     public Swing2048(Jeu _jeu) {
         jeu = _jeu;
@@ -57,31 +56,10 @@ public class Swing2048 extends JFrame implements Observer {
         setSize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
         menuBar = new SwingMenu(jeu);
         setJMenuBar(menuBar);
+        setBackground(tile_bg_colors[0]);
         
-        tabC = new JLabel[jeu.getSize()][jeu.getSize()];
+        dessinerGrille();
 
-        JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
-        contentPane.setBackground(bg_color);
-
-        Font font = new Font(Font.SANS_SERIF, Font.BOLD, 40);
-
-        for (int i = 0; i < jeu.getSize(); i++) {
-            for (int j = 0; j < jeu.getSize(); j++) {
-                Border border = BorderFactory.createLineBorder(bg_color, 5);
-                tabC[i][j] = new JLabel();
-                tabC[i][j].setFont(font);
-                tabC[i][j].setBorder(border);
-                tabC[i][j].setForeground(java.awt.Color.white);
-                tabC[i][j].setOpaque(true);
-
-                tabC[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-
-
-                contentPane.add(tabC[i][j]);
-            }
-        }
-        this.setBackground(tile_bg_colors[0]);
-        setContentPane(contentPane);
         ajouterEcouteurClavier();
         rafraichir();
 
@@ -165,11 +143,41 @@ public class Swing2048 extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if (jeu.sizeChanged){
+            dessinerGrille();
+            jeu.sizeChanged = false;
+        }
         rafraichir();
         menuBar.update();
         if (jeu.mustBlink){
             menuBar.blink();
             jeu.mustBlink = false;
         }
+    }
+
+    public void dessinerGrille(){
+        JPanel contentPane = new JPanel(new GridLayout(jeu.getSize(), jeu.getSize()));
+        contentPane.setBackground(bg_color);
+
+        tabC = new JLabel[jeu.getSize()][jeu.getSize()];
+
+        for (int i = 0; i < jeu.getSize(); i++) {
+            for (int j = 0; j < jeu.getSize(); j++) {
+                Border border = BorderFactory.createLineBorder(bg_color, 5);
+                tabC[i][j] = new JLabel();
+                tabC[i][j].setFont(font);
+                tabC[i][j].setBorder(border);
+                tabC[i][j].setForeground(java.awt.Color.white);
+                tabC[i][j].setOpaque(true);
+
+                tabC[i][j].setHorizontalAlignment(SwingConstants.CENTER);
+
+                contentPane.add(tabC[i][j]);
+            }
+        }
+        setContentPane(contentPane);
+        resize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
+
+        //System.out.println("GRILLE DESSINÉE");
     }
 }
