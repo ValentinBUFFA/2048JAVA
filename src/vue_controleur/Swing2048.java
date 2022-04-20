@@ -114,13 +114,13 @@ public class Swing2048 extends JFrame implements Observer {
             tabC[i][j].setBackground(tile_bg_colors[0]);
 
         } else {
-            tabC[i][j].setForeground(Color.WHITE);
-            tabC[i][j].setText(c.getValeur() + "");
             Color col = tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)];
-            tabC[i][j].setBackground(col);
-
+            tabC[i][j].setText(c.getValeur() + "");
             if (jeu.newCasePoint != null && i==jeu.newCasePoint.x && j==jeu.newCasePoint.y){
                 apparaitreCase(i, j, col);
+            }else{
+                tabC[i][j].setForeground(Color.WHITE);
+                tabC[i][j].setBackground(col);
             }
         }
     } 
@@ -141,7 +141,6 @@ public class Swing2048 extends JFrame implements Observer {
                 tabC[i][j].setForeground(tool.Tool.fadeTo(tile_bg_colors[0], Color.WHITE, k*50));
                 tabC[i][j].setBackground(tool.Tool.fadeTo(tile_bg_colors[0], dest, k*50));
             }
-            //System.out.println("anim");
             jeu.newCasePoint = null;
             if (c != jeu.getCase(i, j)){
                 rafraichirCase(i, j);
