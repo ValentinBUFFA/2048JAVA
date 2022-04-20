@@ -117,7 +117,7 @@ public class SwingMenu extends JMenuBar {
                     System.out.println("Erreur : fichier de sauvergarde introuvable");
                 }
                 break;
-            case "Nouvelle Partie": jeu.resetJeu(); break;
+            case "Nouvelle Partie": nouvellePartiePopUp(); break;
             case "Annuler": jeu.undoMove(); break;
             case "Refaire": jeu.redoMove(); break;
 
