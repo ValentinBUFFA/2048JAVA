@@ -4,8 +4,8 @@ VUE_CONTROLEUR: Console2048, Swing2048
 
 ### TODOLIST:
 #### VUE:
-- [X] Resize la taille de la police pour eviter l'overflow sur l'affichage graphique
-- [X] Passer la police en vectoriel?
+- [N] Resize la taille de la police pour eviter l'overflow sur l'affichage graphique
+- [N] Passer la police en vectoriel?
 - Affichage lors de gameover
 - [X] Affichage au lancement (reprendre partie, choisir taille, etc)
 - [V] Bouton/keybind pour annuler un coup
