@@ -130,21 +130,24 @@ public class Swing2048 extends JFrame implements Observer {
         new Thread(() -> {
             Case c = jeu.getCase(i, j);
             int k = 1;
-            while (k<=10){
+            while (k<=20){
                 if(c != jeu.getCase(i, j)){
                     break;
                 }
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                tabC[i][j].setForeground(tool.Tool.fadeTo(tile_bg_colors[0], Color.WHITE, k*100));
-                tabC[i][j].setBackground(tool.Tool.fadeTo(tile_bg_colors[0], dest, k*100));
+                tabC[i][j].setForeground(tool.Tool.fadeTo(tile_bg_colors[0], Color.WHITE, k*50));
+                tabC[i][j].setBackground(tool.Tool.fadeTo(tile_bg_colors[0], dest, k*50));
                 k++;
             }
+            //System.out.println("anim");
             jeu.newCasePoint = null;
-            rafraichirCase(i, j);
+            if (c != jeu.getCase(i, j)){
+                rafraichirCase(i, j);
+            }
             }).start();
         }
         catch (Exception e){
