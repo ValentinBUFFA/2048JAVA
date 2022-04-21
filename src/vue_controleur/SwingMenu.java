@@ -12,6 +12,8 @@ public class SwingMenu extends JMenuBar {
     private Jeu jeu;
     private JLabel hsL, scoreL;
     JTextField searchfField;
+    private boolean enableAnim;
+    JCheckBox animCheckBox;
     private JMenuItem[][] items = new JMenuItem[][] {
         new JMenuItem[] {   // Items dans le menu Partie
             new JMenuItem("Sauver", 'S'),
@@ -33,6 +35,7 @@ public class SwingMenu extends JMenuBar {
 
     public SwingMenu(Jeu _jeu) {
         jeu = _jeu;
+        enableAnim = true;
         
         this.setBackground(bg_color);
         this.setBorder(BorderFactory.createEmptyBorder());
@@ -64,7 +67,14 @@ public class SwingMenu extends JMenuBar {
         }
 
         partieMenu.insertSeparator(2);
+        partieMenu.insertSeparator(4);
+        animCheckBox = new JCheckBox("Animations");
+        animCheckBox.addActionListener(afficherMenu);
+        animCheckBox.setSelected(true);
+        partieMenu.add(animCheckBox);
+
         actionMenu.insertSeparator(2);
+
 
         JMenu aideMenu = new JMenu("Aide");
         aideMenu.setForeground(Color.white);
@@ -110,6 +120,7 @@ public class SwingMenu extends JMenuBar {
     }
 
     public void doAction(String event) {
+        enableAnim = animCheckBox.getModel().isSelected();
         switch (event) {
             case "Sauver": jeu.saveToFile(); break;
             case "Restaurer": 
@@ -154,21 +165,31 @@ public class SwingMenu extends JMenuBar {
         }).start();
     }
 
-    public void afficherSave(){
+    public void afficherSave() {
         saveIndicator.setText("(sauvé)");
-        new Thread(() -> {
-            try {
-                for(int k = 1; k<=20; k++){
-                    Thread.sleep(50);
-                    saveIndicator.setForeground(tool.Tool.fadeTo(Color.WHITE, bg_color, k*50));
+        if (enableAnim) {
+            new Thread(() -> {
+                try {
+                    for(int k = 1; k<=20; k++){
+                        Thread.sleep(50);
+                        saveIndicator.setForeground(tool.Tool.fadeTo(Color.WHITE, bg_color, k*50));
+                    }
                 }
-            }
-            catch (Exception e){
-                System.err.println(e);
+                catch (Exception e){
+                    System.err.println(e);
+                }
+                saveIndicator.setText("");
+    
+            }).start();
+        } else {
+            try {
+                wait(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
             saveIndicator.setText("");
-
-        }).start();
+        }
     }
 
     public void nouvellePartiePopUp(){
@@ -210,5 +231,9 @@ public class SwingMenu extends JMenuBar {
         }
         
         return false;
+    }
+
+    public boolean getEnableAnim() {
+        return enableAnim;
     }
 }

@@ -114,7 +114,7 @@ public class Swing2048 extends JFrame implements Observer {
 
         } else {
             Color col = tile_bg_colors[Math.min(Tool.log2(c.getValeur()),11)];
-            if (jeu.newCasePoint != null && i==jeu.newCasePoint.x && j==jeu.newCasePoint.y){
+            if (jeu.newCasePoint != null && i==jeu.newCasePoint.x && j==jeu.newCasePoint.y && menuBar.getEnableAnim()){
                 tabC[i][j].setForeground(tile_bg_colors[0]);
                 tabC[i][j].setBackground(tile_bg_colors[0]);
                 tabC[i][j].setText(c.getValeur() + "");
@@ -187,7 +187,7 @@ public class Swing2048 extends JFrame implements Observer {
         }
         rafraichir();
         menuBar.update();
-        if (jeu.mustBlink){
+        if (jeu.mustBlink && menuBar.getEnableAnim()){
             menuBar.blink();
             jeu.mustBlink = false;
         }
