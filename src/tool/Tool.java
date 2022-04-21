@@ -1,6 +1,7 @@
 package tool;
 import java.lang.Math;
 import java.awt.Point;
+import java.io.File;
 import java.util.HashMap;
 
 import java.awt.Color;
@@ -65,5 +66,37 @@ public class Tool {
     public static Color fadeTo(Color origin, Color dest, int pr){
         int or = origin.getRed(), og = origin.getGreen(), ob = origin.getBlue(), dr = dest.getRed(), dg = dest.getGreen(), db = dest.getBlue();
         return new Color((int)((or*(1000-pr)+dr*pr)/1000), (int)((og*(1000-pr)+dg*pr)/1000), (int)((ob*(1000-pr)+db*pr)/1000));
+    }
+
+    public static String[] saveSearch() {
+        File f = new File("saves");    
+        String[] s = f.list();
+        return s;
+    }
+
+    public static boolean saveNameCompare(String filename) {
+        File f = new File("saves");    
+        String[] list = f.list();
+        if (list.length > 0) {
+            for (int i = 0; i < list.length ; i++) {
+                if (filename.equals(list[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void checkSaveDir() {
+        String dir = "saves";
+        File file = new File(dir);
+        if (!file.exists()) {
+             // true if the directory was created, false otherwise
+            if (file.mkdirs()) {
+                System.out.println("Directory is created!");
+            } else {
+                System.out.println("Failed to create directory!");
+            }
+        }
     }
 }

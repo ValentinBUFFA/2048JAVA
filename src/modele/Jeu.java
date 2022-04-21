@@ -20,10 +20,12 @@ public class Jeu extends Observable {
     public HashMap<Case, Point> hm;
     private Historique historique;
     private int score, highscore;
+    private String last_save_name;
     public boolean gameover;
     public boolean mustBlink;
     public boolean sizeChanged = false;
     public Point newCasePoint;
+    
 
     public Jeu(int size) {
         tabCases = new Case[size][size];
@@ -36,6 +38,8 @@ public class Jeu extends Observable {
         score = 0;
         highscore = loadHighScore();
         mustBlink = false;
+        last_save_name = null;
+        tool.Tool.checkSaveDir();
 
     }
 
@@ -317,10 +321,10 @@ public class Jeu extends Observable {
     }
 
     // Sauvegarde dans un fichier externe (syntaxe csv)
-    public void saveToFile() {
+    public boolean saveToFile(String filename) {
         PrintWriter printWriter;
         try {
-            printWriter = new PrintWriter(new FileWriter("save.csv"));
+            printWriter = new PrintWriter(new FileWriter("saves/" + filename));
             // grid to csv
             // score, taille_grille
             printWriter.printf("%d,%d", score, tabCases.length);
@@ -335,15 +339,48 @@ public class Jeu extends Observable {
             printWriter.close();
 
             System.out.println("Sauvegardé!");
+            last_save_name = filename;
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    public boolean loadFromFile() {
+    public boolean saveToFile() {
+        PrintWriter printWriter;
+        if (last_save_name == null) {
+            return false;
+        }
         try {
-            File saveFile = new File("save.csv");
-            if (!saveFile.exists()) {
+            printWriter = new PrintWriter(new FileWriter("saves/" + last_save_name));
+            // grid to csv
+            // score, taille_grille
+            printWriter.printf("%d,%d", score, tabCases.length);
+            printWriter.println();
+            for (int i = 0; i < tabCases.length; i++) {
+                for (int j = 0; j < tabCases.length - 1; j++) {
+                    printWriter.printf("%d,", getValeur(i, j));
+                }
+                printWriter.print(getValeur(i, tabCases.length - 1));
+                printWriter.println();
+            }
+            printWriter.close();
+
+            System.out.println("Sauvegardé!");
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+
+    public boolean loadFromFile(String filename) {
+        try {
+            File saveFile = new File("saves/" + filename);
+            if (!saveFile.exists() || filename == null) {
                 return false;
             }
             Scanner saveScanner = new Scanner(saveFile);
@@ -379,13 +416,13 @@ public class Jeu extends Observable {
 
             gameover = false;
             testFinPartie();
-
+            last_save_name = filename;
             System.out.println("Restoré!");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return false;
         }
-
+        
         setChanged();
         notifyObservers();
         return true;

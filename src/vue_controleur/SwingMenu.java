@@ -16,6 +16,7 @@ public class SwingMenu extends JMenuBar {
     JCheckBox animCheckBox;
     private JMenuItem[][] items = new JMenuItem[][] {
         new JMenuItem[] {   // Items dans le menu Partie
+            new JMenuItem("Créer une sauvegarde", 'C'),
             new JMenuItem("Sauver", 'S'),
             new JMenuItem("Restaurer", 'E'),
             new JMenuItem("Nouvelle Partie", 'N')
@@ -32,13 +33,17 @@ public class SwingMenu extends JMenuBar {
     private java.awt.Color bg_color = new java.awt.Color(77,63,40);
     private java.awt.Color blink_color = new java.awt.Color(87,74,62);
     private JLabel saveIndicator = new JLabel("");
+    private String[] saves_list;
 
     public SwingMenu(Jeu _jeu) {
         jeu = _jeu;
         enableAnim = true;
-        
+        saves_list = tool.Tool.saveSearch();
+
         this.setBackground(bg_color);
         this.setBorder(BorderFactory.createEmptyBorder());
+
+        
 
         ActionListener afficherMenu = new ActionListener(){
             public void actionPerformed(ActionEvent event) {
@@ -123,11 +128,17 @@ public class SwingMenu extends JMenuBar {
     public void doAction(String event) {
         enableAnim = animCheckBox.getModel().isSelected();
         switch (event) {
-            case "Sauver": jeu.saveToFile(); break;
+            case "Sauver":
+                savePopUp();
+                break;
+            case "Créer une sauvegarde": 
+                while(!saveAsPopUp()) {}
+                break;
             case "Restaurer": 
-                if(!jeu.loadFromFile()) {
+                restorePopUp();
+                /*if(!jeu.loadFromFile()) {
                     System.out.println("Erreur : fichier de sauvergarde introuvable");
-                }
+                }*/
                 break;
             case "Nouvelle Partie": nouvellePartiePopUp(); break;
             case "Annuler": jeu.undoMove(); break;
@@ -191,6 +202,7 @@ public class SwingMenu extends JMenuBar {
             }
             saveIndicator.setText("");
         }
+        saves_list = tool.Tool.saveSearch();
     }
 
     public void nouvellePartiePopUp(){
@@ -220,6 +232,62 @@ public class SwingMenu extends JMenuBar {
         }
         return false;
         
+    }
+
+    public void restorePopUp() {
+        JFrame jFrame = new JFrame();
+        if (saves_list.length > 0) {
+            String filename = (String) JOptionPane.showInputDialog(jFrame, "Sélectionnez la sauvergarde à restaurer :", "Restaurer", JOptionPane.QUESTION_MESSAGE, null, saves_list, saves_list[0]);
+            jeu.loadFromFile(filename);
+            // TODO : Si le fichier choisi est corrompu : afficher une erreur et ne pas sauvegarder (à voir aussi dans loadFromFile())
+        } else {
+            errorPopUp(jFrame, "Aucune sauvergarde à restaurer !");
+        }
+    }
+
+    public void savePopUp() {
+        if(!jeu.saveToFile()) {
+            JFrame jFrame = new JFrame();
+            errorPopUp(jFrame, "Aucun fichier de sauvegarde pour cette partie, vous devez d'abord créer une sauvegarde.");
+        }
+    }
+    
+
+    public boolean saveAsPopUp() {
+        JFrame jFrame = new JFrame();
+
+        String filename = JOptionPane.showInputDialog(jFrame, "L'enregistrement s'effectue dans saves/. \n Enregistrer sous : ", JOptionPane.INFORMATION_MESSAGE);
+        if (filename == null) {
+            return true;
+        } else if (filename.equals("") ) {
+            errorPopUp(jFrame, "Nom incorrect, essayez en un autre.");
+            return false;
+        }
+
+       
+        if (tool.Tool.saveNameCompare(filename)) {
+            //errorPopUp(jFrame, "Fichier existant déjà !");
+            int rc = JOptionPane.showConfirmDialog(jFrame, "Le fichier existe déjà, voulez-vous le remplacer ?", "Sauvegarde", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
+            switch (rc) {
+                case JOptionPane.YES_OPTION:
+                    jeu.saveToFile(filename);
+                    break;                    
+                case JOptionPane.CANCEL_OPTION:
+                    errorPopUp(jFrame, "La sauvegarde n'a pas été effectuée !");
+                    return true;
+                default:
+                    return false;
+            }
+        }  else {
+            jeu.saveToFile(filename);
+        }
+        saves_list = tool.Tool.saveSearch();
+        return true;
+    }
+
+    public void errorPopUp(JFrame jFrame, String errorDiscourse) {
+        JOptionPane.showMessageDialog(jFrame, errorDiscourse, "Erreur", JOptionPane.ERROR_MESSAGE);
     }
     
     public boolean search(String entry) {
