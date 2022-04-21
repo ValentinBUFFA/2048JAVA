@@ -178,6 +178,7 @@ public class SwingMenu extends JMenuBar {
     }
 
     public void afficherSave() {
+        saveIndicator.setForeground(Color.WHITE);
         saveIndicator.setText("(sauvé)");
         if (enableAnim) {
             new Thread(() -> {
@@ -194,13 +195,15 @@ public class SwingMenu extends JMenuBar {
     
             }).start();
         } else {
-            try {
-                wait(100);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            saveIndicator.setText("");
+            new Thread(() -> {
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                saveIndicator.setText("");
+            }).start();
         }
         saves_list = tool.Tool.saveSearch();
     }
