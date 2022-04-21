@@ -67,11 +67,7 @@ public class SwingMenu extends JMenuBar {
         }
 
         partieMenu.insertSeparator(2);
-        partieMenu.insertSeparator(4);
-        animCheckBox = new JCheckBox("Animations");
-        animCheckBox.addActionListener(afficherMenu);
-        animCheckBox.setSelected(true);
-        partieMenu.add(animCheckBox);
+        
 
         actionMenu.insertSeparator(2);
 
@@ -83,6 +79,11 @@ public class SwingMenu extends JMenuBar {
         JButton rechercher = new JButton("Rechercher");
         aideMenu.add(rechercher);
         rechercher.addActionListener(afficherMenu);
+        aideMenu.insertSeparator(3);
+        animCheckBox = new JCheckBox("Animations");
+        animCheckBox.addActionListener(afficherMenu);
+        animCheckBox.setSelected(true);
+        aideMenu.add(animCheckBox);
 
         JPanel scoresPane = new JPanel();
 
