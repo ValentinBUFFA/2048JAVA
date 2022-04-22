@@ -492,6 +492,7 @@ public class Jeu extends Observable {
         historique.ajouterHist(hm, score);
         score = 0;
         mustBlink = false;
+        last_save_name = null;
 
         setChanged();
         notifyObservers();
