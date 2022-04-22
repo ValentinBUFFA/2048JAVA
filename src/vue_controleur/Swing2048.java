@@ -36,14 +36,14 @@ public class Swing2048 extends JFrame implements Observer {
         new java.awt.Color(237,194,46),//2048
     };
     private Character[] gm = new Character[] {
-        'B',
-        'I',
         'G',
-        ' ',
-        'B',
-        'I',
-        'T',
+        'A',
+        'M',
         'E',
+        'O',
+        'V',
+        'E',
+        'R',
     };
     private java.awt.Color bg_color = new java.awt.Color(87,74,62);
     private SwingMenu menuBar;
