@@ -3,6 +3,7 @@ package modele;
 import java.util.HashMap;
 import java.awt.Point;
 
+@SuppressWarnings( "unchecked" )
 public class Historique {
     private HashMap<Case, Point>[] hm_hist;
     private int[] score_hist;
