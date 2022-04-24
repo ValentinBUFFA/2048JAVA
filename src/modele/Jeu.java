@@ -17,17 +17,20 @@ import java.io.FileNotFoundException;
 
 public class Jeu extends Observable {
 
-    private Case[][] tabCases;
+    private ExecutorService executor = Executors.newFixedThreadPool(10);
     private static Random rnd = new Random();
+
+    private Case[][] tabCases;
     public HashMap<Case, Point> hm;
+    public boolean gameover;
+
     private Historique historique;
     private int score, highscore;
     private String last_save_name;
-    public boolean gameover;
+    
     public boolean mustBlink;
     public boolean sizeChanged = false;
     public Point newCasePoint;
-    private ExecutorService executor = Executors.newFixedThreadPool(10);
 
     
 
