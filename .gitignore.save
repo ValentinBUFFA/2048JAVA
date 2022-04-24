@@ -1,0 +1,6 @@
+/bin
+/.vscode
+/lib
+*.csv
+AltMain.java
+/saves

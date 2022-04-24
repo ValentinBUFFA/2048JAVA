@@ -21,7 +21,7 @@ public class SwingMenu extends JMenuBar {
             new JMenuItem("Restaurer", 'E'),
             new JMenuItem("Nouvelle Partie", 'N')
         }, 
-        new JMenuItem[] {    // Items adns le menu Action
+        new JMenuItem[] {    // Items dans le menu Action
             new JMenuItem("Annuler", 'A'),
             new JMenuItem("Refaire", 'R'),
             new JMenuItem("Haut", 'H'),
