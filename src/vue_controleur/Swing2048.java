@@ -50,6 +50,8 @@ public class Swing2048 extends JFrame implements Observer {
     private Font font = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 
     public Swing2048(Jeu _jeu) {
+        ImageIcon icon = new ImageIcon("2048-icon.png");
+        setIconImage(icon.getImage());
         jeu = _jeu;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(jeu.getSize() * PIXEL_PER_SQUARE, jeu.getSize() * PIXEL_PER_SQUARE);
