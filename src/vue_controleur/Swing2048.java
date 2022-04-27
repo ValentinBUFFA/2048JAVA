@@ -177,6 +177,7 @@ public class Swing2048 extends JFrame implements Observer {
                     case KeyEvent.VK_R: menuBar.restorePopUp(); break;
                     case KeyEvent.VK_N: menuBar.nouvellePartiePopUp(); break;
                 }
+                
             }
         });
     }
