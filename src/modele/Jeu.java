@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -15,16 +17,21 @@ import java.io.FileNotFoundException;
 
 public class Jeu extends Observable {
 
-    private Case[][] tabCases;
+    private ExecutorService executor = Executors.newFixedThreadPool(10);
     private static Random rnd = new Random();
+
+    private Case[][] tabCases;
     public HashMap<Case, Point> hm;
+    public boolean gameover;
+
     private Historique historique;
     private int score, highscore;
     private String last_save_name;
-    public boolean gameover;
+    
     public boolean mustBlink;
     public boolean sizeChanged = false;
     public Point newCasePoint;
+
     
 
     public Jeu(int size) {
@@ -141,9 +148,8 @@ public class Jeu extends Observable {
     }
 
     public void action(Direction d) {
-        new Thread() { // permet de libérer le processus graphique ou de la console
+        executor.submit(new Runnable() {
             public void run() {
-
                 if (void_action(d) > 0) {
                     ajouterRnd();
                     historique.ajouterHist(hm, score);
@@ -155,8 +161,7 @@ public class Jeu extends Observable {
                 setChanged();
                 notifyObservers();
             }
-
-        }.start();
+        });
     }
 
     // renvoie la premiere case non null dans la direction d en partant de (i,j)

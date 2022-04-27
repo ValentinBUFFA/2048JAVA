@@ -14,6 +14,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
+
 @SuppressWarnings( "deprecation" )
 
 public class Swing2048 extends JFrame implements Observer {
