@@ -252,6 +252,7 @@ public class SwingMenu extends JMenuBar {
         if(!jeu.saveToFile()) {
             JFrame jFrame = new JFrame();
             errorPopUp(jFrame, "Aucun fichier de sauvegarde pour cette partie, vous devez d'abord créer une sauvegarde.");
+            while(!saveAsPopUp());
         }
     }
     
