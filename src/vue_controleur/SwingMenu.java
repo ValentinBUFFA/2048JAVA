@@ -77,7 +77,7 @@ public class SwingMenu extends JMenuBar {
         actionMenu.insertSeparator(2);
 
 
-        JMenu aideMenu = new JMenu("Aide");
+        JMenu aideMenu = new JMenu("Divers");
         aideMenu.setForeground(Color.white);
         searchfField = new JTextField();
         aideMenu.add(searchfField);
@@ -151,8 +151,11 @@ public class SwingMenu extends JMenuBar {
             
             case "Rechercher": 
                 String s = searchfField.getText();
-                if(searchResultPopUp(search(s))) {
+                boolean b = tool.Tool.saveNameCompare(s);
+                if(b == false && searchResultPopUp(search(s))) {
                     doAction(s);
+                } else if (searchResultPopUp(b)) {
+                    jeu.loadFromFile(s);
                 }
                 break;
         }
@@ -224,7 +227,7 @@ public class SwingMenu extends JMenuBar {
     public boolean searchResultPopUp(boolean b) {
         JFrame jFrame = new JFrame();
         if (b) {
-            int result = JOptionPane.showConfirmDialog(jFrame, "Commande existante, voulez-vous l'executer ? ", "Aide", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(jFrame, "Commande ou Fichier existant, voulez-vous poursuivre ? ", "Aide", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             
             if(result == JOptionPane.YES_OPTION) {
                 return true;

@@ -34,7 +34,7 @@ VUE_CONTROLEUR: Console2048, Swing2048
 - [V] Enregistrer le score
 - [V] Enregistrer le score dans l'historique
 - [V] Ne pas ajouter de cases aléatoire quand un deplacement ne fait aucun mouvement
-- [V] Declencher blink quand il faut (historique limites, blink bitch)
+- [V] Declencher blink quand il faut (historique limites, blink)
 - [V] Varier la taille du plateau de jeu
 - [V] Randomizer le début
 - [V] Exec pool
